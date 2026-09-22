@@ -2,7 +2,12 @@
 
 This folder is the drop-off point for completed country profile content.
 If you're a country team handing off a filled-in profile, this is for
-you — no git experience required.
+you — no git experience required, just a GitHub account.
+
+**Before you start:** ask the MAP Data Engineering Team to add you as a
+collaborator on this repo (they just need your GitHub username or the
+email tied to your account). You'll get an email invite from GitHub —
+accept it, then follow the steps below.
 
 ## What to submit
 
@@ -32,15 +37,16 @@ submissions/
 
 ## How to submit it (no git needed)
 
-1. Open this repo on GitHub in your browser and navigate into `submissions/`.
-2. Click **Add file → Upload files**.
-3. Drag in your whole country folder (or all its files).
-4. Scroll down, add a short commit message (e.g. "Kenya profile
-   submission"), and click **Propose changes**.
-5. GitHub will open a pull request for you automatically — that's it.
-   You don't need write access to this repo for this to work; if you
-   don't have it, GitHub creates a fork behind the scenes and proposes
-   the change from there.
+1. Accept the collaborator invite from GitHub (check your email, or
+   look under github.com's notifications bell).
+2. Open this repo in your browser and navigate into `submissions/`.
+3. Click **Add file → Upload files**.
+4. Drag in your whole country folder (or all its files).
+5. Scroll down — you'll see an option to **"Create a new branch for
+   this commit and start a pull request."** Choose that (it should be
+   selected by default), give the branch/PR a short name (e.g.
+   "kenya-submission"), and click **Propose changes**.
+6. GitHub opens a pull request for you — that's it, you're done.
 
 ## What happens next
 
