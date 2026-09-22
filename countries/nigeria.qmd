@@ -4,9 +4,9 @@ subtitle: "Malaria Country Profile"
 ---
 
 ::: {.callout-note appearance="simple"}
-Profile content in progress. A legacy profile exists at `Nigeria.html`
-(R Markdown/Bootstrap 3) and needs to be migrated into this template
-once the front page and section layout are finalized.
+Profile content in progress. This page will be populated from the DET
+country-submission template (introduction, burden, health system,
+vector profile, references).
 :::
 
 [← Back to all countries](../index.qmd)
