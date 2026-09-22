@@ -1,0 +1,38 @@
+project:
+  type: website
+
+website:
+  title: "Malaria Country Profiles"
+  site-url: ""
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Countries
+        menu:
+          - href: countries/tanzania.qmd
+            text: Tanzania
+          - href: countries/cameroon.qmd
+            text: Cameroon
+          - href: countries/benin.qmd
+            text: Benin
+          - href: countries/burkina-faso.qmd
+            text: Burkina Faso
+          - href: countries/nigeria.qmd
+            text: Nigeria
+          - href: countries/mozambique.qmd
+            text: Mozambique
+          - href: countries/angola.qmd
+            text: Angola
+  page-footer:
+    background: light
+    left: "© 2026 MAP Data Engineering Team"
+    right: "Malaria Country Profiles"
+
+format:
+  html:
+    theme: [cosmo, styles.scss]
+    toc: false
+    anchor-sections: false
+    link-external-newwindow: true

@@ -1,0 +1,12 @@
+---
+title: "🇳🇬 Nigeria"
+subtitle: "Malaria Country Profile"
+---
+
+::: {.callout-note appearance="simple"}
+Profile content in progress. A legacy profile exists at `Nigeria.html`
+(R Markdown/Bootstrap 3) and needs to be migrated into this template
+once the front page and section layout are finalized.
+:::
+
+[← Back to all countries](../index.qmd)

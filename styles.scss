@@ -1,0 +1,217 @@
+/*-- scss:defaults --*/
+
+$primary:       #8a6200;
+$primary-dark:  #4a3500;
+$accent:        #e6b800;
+
+$body-bg:       #f6f8f7;
+$body-color:    #1d2b2e;
+$link-color:    $primary;
+
+$navbar-bg:     #262626;
+$navbar-fg:     #ffffff;
+
+$card-border-radius: 0.6rem;
+$border-radius: 0.5rem;
+
+/*-- scss:rules --*/
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+// Quarto's page-columns grid enforces a >=500px content column that
+// does not collapse below ~530px viewports; drop the grid on narrow
+// screens so content uses the full width instead of overflowing.
+@media (max-width: 599.98px) {
+  .page-columns {
+    display: block !important;
+  }
+}
+
+// ---- Hero -----------------------------------------------------------
+
+// The suppressed (empty) title-block still reserves its usual top
+// spacing (#quarto-content>* padding-top, plus the empty header's own
+// margin) — drop both, scoped to pages that have a hero (the home page)
+// so other pages keep their normal title spacing.
+main.content:has(.hero) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+main.content:has(.hero) #title-block-header {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  background: $primary-dark;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 70%;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(135deg, rgba(74, 53, 0, 0.65) 0%, rgba(138, 98, 0, 0.55) 55%, rgba(138, 98, 0, 0.38) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 1.5rem 5.5rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.75rem;
+}
+
+.hero-title {
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.1rem;
+
+  span {
+    display: block;
+  }
+}
+
+.hero-title-accent {
+  color: $accent;
+  font-size: clamp(1.7rem, 4.4vw, 2.9rem);
+}
+
+.hero-title-base {
+  color: #ffffff;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.hero-subtitle {
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+.hero .btn-cta {
+  background: $accent;
+  border-color: $accent;
+  color: $primary-dark;
+  font-weight: 600;
+  padding: 0.65rem 1.6rem;
+}
+
+.hero .btn-cta:hover,
+.hero .btn-cta:focus {
+  background: darken($accent, 8%);
+  border-color: darken($accent, 8%);
+  color: $primary-dark;
+}
+
+.hero .btn-ghost {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 1.6rem;
+}
+
+.hero .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.dropdown-menu-hero {
+  --bs-dropdown-min-width: 14rem;
+  padding: 0.4rem;
+}
+
+.dropdown-menu-hero .dropdown-item {
+  border-radius: 0.35rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.hero-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 2.75rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.2rem;
+  line-height: 1;
+  text-decoration: none;
+  animation: hero-scroll-bounce 2s infinite;
+}
+
+.hero-scroll-cue:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+// ---- Feature strip (bootstrap cards) ------------------------------------
+
+.feature-strip {
+  padding: 4rem 1rem;
+}
+
+.feature-card {
+  --bs-card-bg: #ffffff;
+  border: 1px solid rgba(138, 98, 0, 0.12);
+  box-shadow: 0 0.35rem 0.9rem rgba(138, 98, 0, 0.06);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.feature-title {
+  font-weight: 700;
+}
+
+.feature-text {
+  color: #4b5c5e;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+}

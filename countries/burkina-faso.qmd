@@ -1,0 +1,12 @@
+---
+title: "🇧🇫 Burkina Faso"
+subtitle: "Malaria Country Profile"
+---
+
+::: {.callout-note appearance="simple"}
+Profile content in progress. This page will be populated from the DET
+country-submission template (introduction, burden, health system,
+vector profile, references).
+:::
+
+[← Back to all countries](../index.qmd)

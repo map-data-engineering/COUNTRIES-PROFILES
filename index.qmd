@@ -1,0 +1,79 @@
+---
+pagetitle: "Malaria Country Profiles"
+page-layout: full
+title-block-banner: false
+---
+
+:::{.column-screen}
+```{=html}
+<div class="hero">
+  <img class="hero-bg-img" src="images/hero-background.jpg" alt="" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">MAP</div>
+    <h1 class="hero-title">
+      <span class="hero-title-accent">Standardized Malaria Data</span>
+      <span class="hero-title-base">For Every Country We Cover</span>
+    </h1>
+    <p class="hero-subtitle">
+      Source-backed epidemiology profiles — burden, interventions, health systems,
+      and vector ecology — compiled and maintained by the MAP Data Engineering Team.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <div class="dropdown">
+        <button class="btn btn-cta btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Browse Country Profiles
+        </button>
+        <ul class="dropdown-menu dropdown-menu-hero">
+          <li><a class="dropdown-item" href="countries/tanzania.qmd">🇹🇿 Tanzania</a></li>
+          <li><a class="dropdown-item" href="countries/cameroon.qmd">🇨🇲 Cameroon</a></li>
+          <li><a class="dropdown-item" href="countries/benin.qmd">🇧🇯 Benin</a></li>
+          <li><a class="dropdown-item" href="countries/burkina-faso.qmd">🇧🇫 Burkina Faso</a></li>
+          <li><a class="dropdown-item" href="countries/nigeria.qmd">🇳🇬 Nigeria</a></li>
+          <li><a class="dropdown-item" href="countries/mozambique.qmd">🇲🇿 Mozambique</a></li>
+          <li><a class="dropdown-item" href="countries/angola.qmd">🇦🇴 Angola</a></li>
+        </ul>
+      </div>
+      <a href="https://www.statcompiler.com" target="_blank" class="btn btn-ghost btn-lg">DHS StatCompiler</a>
+    </div>
+    <a href="#about" class="hero-scroll-cue" aria-label="Scroll down">⌄</a>
+  </div>
+</div>
+```
+:::
+
+```{=html}
+<div class="container">
+  <div id="about" class="feature-strip">
+    <div class="grid">
+      <div class="g-col-12 g-col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon">🗂️</div>
+            <h3 class="card-title feature-title h5">One structure, every country</h3>
+            <p class="card-text feature-text">Every profile follows the same template — introduction, burden, health system, vectors, references — so countries are easy to compare.</p>
+          </div>
+        </div>
+      </div>
+      <div class="g-col-12 g-col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon">📎</div>
+            <h3 class="card-title feature-title h5">Every figure is sourced</h3>
+            <p class="card-text feature-text">Statistics, tables, and maps carry a year and a source — DHS, DHIS2, National Strategic Plans, or peer-reviewed literature.</p>
+          </div>
+        </div>
+      </div>
+      <div class="g-col-12 g-col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon">🔄</div>
+            <h3 class="card-title feature-title h5">Living documents</h3>
+            <p class="card-text feature-text">Profiles are revisited as new surveys, stratifications, and strategic plans are released.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
