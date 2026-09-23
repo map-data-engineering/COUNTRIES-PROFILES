@@ -36,6 +36,20 @@ title-block-banner: false
       </div>
       <a href="https://www.statcompiler.com" target="_blank" class="btn btn-ghost btn-lg">DHS StatCompiler</a>
     </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">7</div>
+        <div class="hero-stat-label">Countries Live</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">11</div>
+        <div class="hero-stat-label">Sections per Profile</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">1</div>
+        <div class="hero-stat-label">Shared Template</div>
+      </div>
+    </div>
     <a href="#about" class="hero-scroll-cue" aria-label="Scroll down">⌄</a>
   </div>
 </div>
@@ -45,6 +59,11 @@ title-block-banner: false
 ```{=html}
 <div class="container">
   <div id="about" class="feature-strip">
+    <div class="section-intro text-center">
+      <div class="section-eyebrow">🧭 OUR APPROACH</div>
+      <h2 class="section-title">One Template. <span class="text-accent">Every Country.</span></h2>
+      <p class="section-subtitle">No matter who submits it, every profile follows the same evidence-backed structure — from burden data to vector ecology.</p>
+    </div>
     <div class="grid">
       <div class="g-col-12 g-col-md-4">
         <div class="card feature-card h-100">

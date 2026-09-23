@@ -21,6 +21,12 @@ $border-radius: 0.5rem;
   letter-spacing: 0.02em;
 }
 
+// ---- Buttons ----------------------------------------------------------
+
+.btn {
+  border-radius: 50rem;
+}
+
 // Quarto's page-columns grid enforces a >=500px content column that
 // does not collapse below ~530px viewports; drop the grid on narrow
 // screens so content uses the full width instead of overflowing.
@@ -161,6 +167,31 @@ main.content:has(.hero) #title-block-header {
   padding: 0.5rem 0.75rem;
 }
 
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-stat-number {
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+  color: $accent;
+}
+
+.hero-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .hero-scroll-cue {
   display: inline-flex;
   align-items: center;
@@ -193,6 +224,35 @@ main.content:has(.hero) #title-block-header {
   padding: 4rem 1rem;
 }
 
+.section-intro {
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+}
+
+.section-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $primary;
+  margin-bottom: 0.6rem;
+}
+
+.section-title {
+  font-weight: 800;
+  color: $body-color;
+  margin-bottom: 0.6rem;
+}
+
+.text-accent {
+  color: $primary;
+}
+
+.section-subtitle {
+  color: #5a6a6c;
+  margin-bottom: 0;
+}
+
 .feature-card {
   --bs-card-bg: #ffffff;
   border: 1px solid rgba(138, 98, 0, 0.12);
@@ -200,9 +260,16 @@ main.content:has(.hero) #title-block-header {
 }
 
 .feature-icon {
-  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.6rem;
   line-height: 1;
-  margin-bottom: 0.75rem;
+  border-radius: 0.9rem;
+  background: rgba(230, 184, 0, 0.15);
+  margin-bottom: 1rem;
 }
 
 .feature-title {
