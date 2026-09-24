@@ -84,7 +84,7 @@ main.content:has(.hero) #title-block-header {
 }
 
 .hero-kicker {
-  font-size: 0.85rem;
+  font-size: 1.0rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -166,9 +166,7 @@ main.content:has(.hero) #title-block-header {
   justify-content: center;
   flex-wrap: wrap;
   gap: 2.5rem;
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 3rem;
 }
 
 .hero-stat-number {
