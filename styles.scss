@@ -83,21 +83,6 @@ main.content:has(.hero) #title-block-header {
   padding: 6.5rem 1.5rem 5.5rem;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.25rem;
-  height: 4.25rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.04em;
-  margin-bottom: 1.75rem;
-}
-
 .hero-title {
   font-weight: 800;
   text-transform: uppercase;

@@ -1,5 +1,5 @@
 ---
-pagetitle: "Malaria Country Profiles"
+title: "Malaria Country Profiles"
 page-layout: full
 title-block-banner: false
 ---
@@ -10,10 +10,9 @@ title-block-banner: false
   <img class="hero-bg-img" src="images/hero-background.jpg" alt="" />
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-badge">MAP</div>
     <h1 class="hero-title">
-      <span class="hero-title-accent">Standardized Malaria Data</span>
-      <span class="hero-title-base">For Every Country We Cover</span>
+      <span class="hero-title-accent">Every Country's Malaria Situation</span>
+      <span class="hero-title-base">In One Standard Profile</span>
     </h1>
     <p class="hero-subtitle">
       Source-backed epidemiology profiles — burden, interventions, health systems,
