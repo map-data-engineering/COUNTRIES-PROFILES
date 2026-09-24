@@ -16,8 +16,8 @@ title-block-banner: false
       <span class="hero-title-base">In One Standard Format</span>
     </h1>
     <p class="hero-subtitle">
-      Source-backed epidemiology profiles — burden, interventions, health systems,
-      and vector ecology — compiled and maintained by the MAP Data Engineering Team.
+      Source-backed epidemiology profiles burden, interventions, health systems,
+      and vector ecology compiled and maintained by the MAP Data Engineering Team.
     </p>
     <div class="d-flex justify-content-center gap-3 flex-wrap">
       <div class="dropdown">
@@ -62,7 +62,7 @@ title-block-banner: false
     <div class="section-intro text-center">
       <div class="section-eyebrow">🧭 OUR APPROACH</div>
       <h2 class="section-title">One Template. <span class="text-accent">Every Country.</span></h2>
-      <p class="section-subtitle">No matter who submits it, every profile follows the same evidence-backed structure — from burden data to vector ecology.</p>
+      <p class="section-subtitle">No matter who submits it, every profile follows the same evidence-backed structure from burden data to vector ecology.</p>
     </div>
     <div class="grid">
       <div class="g-col-12 g-col-md-4">
@@ -70,7 +70,7 @@ title-block-banner: false
           <div class="card-body text-center">
             <div class="feature-icon">🗂️</div>
             <h3 class="card-title feature-title h5">One structure, every country</h3>
-            <p class="card-text feature-text">Every profile follows the same template — introduction, burden, health system, vectors, references — so countries are easy to compare.</p>
+            <p class="card-text feature-text">Every profile follows the same template introduction, burden, health system, vectors, references so countries are easy to compare.</p>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ title-block-banner: false
           <div class="card-body text-center">
             <div class="feature-icon">📎</div>
             <h3 class="card-title feature-title h5">Every figure is sourced</h3>
-            <p class="card-text feature-text">Statistics, tables, and maps carry a year and a source — DHS, DHIS2, National Strategic Plans, or peer-reviewed literature.</p>
+            <p class="card-text feature-text">Statistics, tables, and maps carry a year and a source DHS, DHIS2, National Strategic Plans, or peer-reviewed literature.</p>
           </div>
         </div>
       </div>
