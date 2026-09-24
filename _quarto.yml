@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Malaria Country Profiles"
-  site-url: ""
+  site-url: "https://map-data-engineering.github.io/COUNTRIES-PROFILES/"
   navbar:
     background: primary
     left:
