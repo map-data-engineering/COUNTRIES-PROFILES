@@ -83,6 +83,15 @@ main.content:has(.hero) #title-block-header {
   padding: 6.5rem 1.5rem 5.5rem;
 }
 
+.hero-kicker {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.85rem;
+}
+
 .hero-title {
   font-weight: 800;
   text-transform: uppercase;
