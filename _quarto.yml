@@ -32,7 +32,7 @@ website:
 
 format:
   html:
-    theme: [cosmo, styles.scss]
+    theme: [cosmo, styles.scss, custom.scss]
     toc: false
     anchor-sections: false
     link-external-newwindow: true

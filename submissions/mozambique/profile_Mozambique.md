@@ -63,7 +63,7 @@ Health districts and administrative districts are identical, which is what makes
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/Mozambique_StudyArea_Map.png>)
 **Figure 1:**Administrative geography of Mozambique: 11 provinces and 161 district-level units  
-**Source:** OCHA Common Operational Dataset, 2025; Subnational Administrative Boundaries (COD-AB): https://data.humdata.org/dataset/cod-ab-moz
+**Source:** OCHA Common Operational Dataset, 2025; [Subnational Administrative Boundaries (COD-AB)](https://data.humdata.org/dataset/cod-ab-moz)
 
 ---
 
@@ -102,7 +102,7 @@ Malaria Consortium, 2025; MISAU, 2023; OCHA, 2026).
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/figure_04_timeline.png>)
 **Figure 2:** Timeline of malaria policy changes and intervention milestones, Mozambique, 1982-2026.
-**Source:** NMCP Plano Estrat'gico 2023-2030; MISAU Strategic plan 2006-2009; SIS-MA; Gavi/UNICEF/WHO AFRO (2024); Malaria Consortium (2025); The Global Fund (2026)
+**Source:** NMCP Plano Estratégico 2023-2030; MISAU Strategic plan 2006-2009; SIS-MA; Gavi/UNICEF/WHO AFRO (2024); Malaria Consortium (2025); The Global Fund (2026)
 
 ---
 
