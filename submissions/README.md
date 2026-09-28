@@ -22,35 +22,39 @@ folder per country containing:
   its original filename
 - Any figures/maps referenced in your profile (images)
 
-Put all of it in a new folder here named after your country, e.g.:
+Put all of it in one folder named after your country, e.g.:
 
 ```
-submissions/
-  kenya/
-    profile_kenya.md
-    epi_table_kenya.xlsx
-    STATcompilerExport2026_1234.xlsx
-    figures/
-      admin-boundaries-map.png
-      stratification-map.png
+kenya/
+  profile_kenya.md
+  epi_table_kenya.xlsx
+  STATcompilerExport2026_1234.xlsx
+  figures/
+    admin-boundaries-map.png
+    stratification-map.png
 ```
+
+Then **zip that whole folder** into a single file — `kenya.zip` — before
+submitting. One zip per country, please, rather than individual loose
+files.
 
 ## How to submit it (no git needed)
 
 1. Accept the collaborator invite from GitHub (check your email, or
    look under github.com's notifications bell).
-2. Open this repo in your browser and navigate into `submissions/`.
-3. Click **Add file → Upload files**.
-4. Drag in your whole country folder (or all its files).
-5. Scroll down — you'll see an option to **"Create a new branch for
+2. Zip your country folder (see above) into a single `<yourcountry>.zip`.
+3. Open this repo in your browser and navigate into `submissions/`.
+4. Click **Add file → Upload files**.
+5. Drag in your `<yourcountry>.zip` file.
+6. Scroll down — you'll see an option to **"Create a new branch for
    this commit and start a pull request."** Choose that (it should be
    selected by default), give the branch/PR a short name (e.g.
    "kenya-submission"), and click **Propose changes**.
-6. GitHub opens a pull request for you — that's it, you're done.
+7. GitHub opens a pull request for you — that's it, you're done.
 
 ## What happens next
 
-The MAP Data Engineering Team reviews the pull request, checks that
+The MAP Data Engineering Team unzips your submission, checks that
 every statistic/table/figure has a year and a source, and converts the
 content into the live site page under `countries/`. We'll comment on
 the PR if anything's missing or unclear before merging.
