@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "countries/*.qmd"
+    - "!submissions/"
 
 website:
   title: "Malaria Country Profiles"
