@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Country Profiles — custom site styling
+   Wired into _quarto.yml via: theme: [cosmo, styles.scss, custom.scss]
+   ========================================================================== */
+
+/*-- scss:defaults --*/
+
+$navy:       #1F3A5F;
+$navy-dark:  #14283F;
+$gray-text:  #4A4A4A;
+$border:     #DDDDDD;
+
+/* Bootstrap variable override — affects links, buttons, accents site-wide */
+$primary: $navy;
+
+/*-- scss:rules --*/
+
+/* ---------- Typography ---------- */
+body {
+  color: $gray-text;
+}
+
+h1, h2, h3, h4 {
+  color: $navy-dark;
+  font-weight: 600;
+}
+
+h2 {
+  border-bottom: 2px solid $navy;
+  padding-bottom: 0.3rem;
+  margin-top: 2.5rem;
+}
+
+/* ---------- Images / figures ----------
+   Every submitted image gets the SAME consistent frame, regardless of
+   whatever background color or matting the researcher exported it with.
+   This is what replaces asking 11 different researchers to standardize
+   their own export settings. */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.25rem auto;
+  padding: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid $border;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Tables ----------
+   Complements the per-table kableExtra styling (navy header) already
+   applied in R chunks like the Section 2 KCI table — this covers any
+   plain markdown tables (e.g. the DHIS2/Survey indicator tables) that
+   don't go through kableExtra. */
+table {
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+table thead th {
+  background-color: $navy;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #F7F9FB;
+}
+
+/* ---------- Source / caption lines ----------
+   Targets the italic "*source-...*" and bold "**Figure:**" lines
+   researchers write directly in their markdown. */
+p em {
+  color: #6B6B6B;
+  font-size: 0.9rem;
+}
