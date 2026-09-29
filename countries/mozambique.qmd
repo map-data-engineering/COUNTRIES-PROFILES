@@ -20,31 +20,59 @@ accounting for over a quarter of outpatient visits and more than a third of hosp
 
 ## 2. Summary Statistics
 
+**Table 1:**  Statistical summary of Mozambique.
+
 
 ```{r}
 #| echo: false
 #| message: false
-library(dplyr); library(openxlsx); library(kableExtra)
+suppressPackageStartupMessages({ library(dplyr); library(openxlsx); library(kableExtra) })
 
-epi_data <- read.xlsx("../submissions/mozambique/epi_table_TEMPLATE_v1.xlsx", sheet = "Data")
+epi_data <- read.xlsx("../submissions/mozambique/epi_table_mozambique.xlsx", sheet = "Data")
 
-kci_table <- epi_data %>%
-  filter(Types == "KCI", Country == "Mozambique") %>%
-  select(Metric, Value, Unit, Year, Source) %>%
-  mutate(
-    Value = suppressWarnings(as.numeric(Value)),
-    Value = ifelse(is.na(Value), NA, round(Value, 1)),
-    Value = format(Value, big.mark = ",", scientific = FALSE, trim = TRUE)
-  )
+esc <- function(x) {
+  x <- gsub("&", "&amp;", x, fixed = TRUE)
+  x <- gsub("<", "&lt;", x, fixed = TRUE)
+  gsub(">", "&gt;", x, fixed = TRUE)
+}
 
-kbl(kci_table, caption = "Key demographic and malaria indicators") %>%
+# Whole numbers get thousands separators; decimals get one decimal place;
+# words (for example a city) are left as they are.
+fmt <- function(v) {
+  n <- suppressWarnings(as.numeric(v))
+  out <- as.character(v)
+  whole <- !is.na(n) & abs(n - round(n)) < 1e-9
+  dec <- !is.na(n) & !whole
+  out[whole] <- formatC(n[whole], format = "f", digits = 0, big.mark = ",")
+  out[dec] <- formatC(round(n[dec], 1), format = "f", digits = 1, big.mark = ",")
+  out
+}
+
+tbl <- epi_data %>%
+  filter(Types == "KCI", Country == "Mozambique")
+
+tbl <- tbl %>%
+  transmute(
+    Indicator = esc(Metric),
+    Value = fmt(Value),
+    Unit = ifelse(Unit == "text", "", esc(Unit)),
+    Year = as.character(Year),
+    Source = ifelse(is.na(Link) | Link == "", esc(Source),
+                    paste0("<a href='", Link, "'>", esc(Source), "</a>")),
+    `Retrieved via` = esc(Retrieved_via)
+  ) %>%
+  mutate(across(everything(), ~ ifelse(is.na(.x), "", .x)))
+tbl <- tbl %>% select(-`Retrieved via`)
+kbl(tbl, escape = FALSE) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = TRUE, font_size = 13) %>%
   row_spec(0, bold = TRUE, background = "#1F3A5F", color = "white") %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(2, width = "12%") %>%
-  column_spec(4, width = "8%")
+  column_spec(1, bold = TRUE)
 ```
+
+
+---
+
 
 
 ## 3. Administrative Boundaries
@@ -57,7 +85,7 @@ Health districts and administrative districts are identical, which is what makes
 
 ![**Figure:**](../submissions/mozambique/Images/Mozambique_StudyArea_Map.png)
 **Figure 1:**Administrative geography of Mozambique: 11 provinces and 161 district-level units  
-**Source:** OCHA Common Operational Dataset, 2025; Subnational Administrative Boundaries (COD-AB): https://data.humdata.org/dataset/cod-ab-moz
+**Source:** OCHA Common Operational Dataset, 2025; [Subnational Administrative Boundaries (COD-AB)](https://data.humdata.org/dataset/cod-ab-moz)
 
 ---
 
@@ -100,7 +128,7 @@ Malaria Consortium, 2025; MISAU, 2023; OCHA, 2026).
 
 ![**Figure:**](../submissions/mozambique/Images/figure_04_timeline.png)
 **Figure 2:** Timeline of malaria policy changes and intervention milestones, Mozambique, 1982-2026.
-**Source:** NMCP Plano Estrat'gico 2023-2030; MISAU Strategic plan 2006-2009; SIS-MA; Gavi/UNICEF/WHO AFRO (2024); Malaria Consortium (2025); The Global Fund (2026)
+**Source:** NMCP Plano Estratégico 2023-2030; MISAU Strategic plan 2006-2009; SIS-MA; Gavi/UNICEF/WHO AFRO (2024); Malaria Consortium (2025); The Global Fund (2026)
 
 ---
 
@@ -112,23 +140,78 @@ Malaria Consortium, 2025; MISAU, 2023; OCHA, 2026).
 
 **Table 2:**  Malaria indicators from the national DHIS2 instance (SIS-MA), Mozambique, 2022. 
 
-| Indicator | Value | Year | Source (DHIS2) |
-|:---|:---|:---|:-----|
-| Malaria incidence | 391.8 per 1,000 population at risk | 2022| SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf) |
-| Suspected malaria cases | 23,225,241 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Patients receiving a diagnostic test | 23,206,871 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Total malaria cases | 12,405,868 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Confirmed cases | 12,387,459 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Presumed cases | 18,409 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Cases confirmed | 99.9% | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Test positive rate | 53.4% | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Cases in children under five | 5,220,192 (42.1%) | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Severe cases | 70,118 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Reported malaria deaths (routine) | 423 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| Diagnostic tests performed by CHWs | 2,106,887 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 5 |
-| Cases reported by CHWs | 1,270,207 (10.2%) | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 5 |
-| Reporting completeness | 96.9% | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 4 |
-| All-cause outpatient consultations | 50,967,475 | 2022 | SIS-MA (DHIS2), via [PMI Mozambique Malaria Profile FY 2024](https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf), Table 5 |
+
+```{r}
+#| echo: false
+#| message: false
+suppressPackageStartupMessages({ library(dplyr); library(openxlsx); library(kableExtra) })
+
+epi_data <- read.xlsx("../submissions/mozambique/epi_table_mozambique.xlsx", sheet = "Data")
+disp <- read.csv("../config/display_dhis2.csv", stringsAsFactors = FALSE, na.strings = "")
+
+esc <- function(x) {
+  x <- gsub("&", "&amp;", x, fixed = TRUE)
+  x <- gsub("<", "&lt;", x, fixed = TRUE)
+  gsub(">", "&gt;", x, fixed = TRUE)
+}
+fmt <- function(v) {
+  n <- suppressWarnings(as.numeric(v))
+  out <- as.character(v)
+  whole <- !is.na(n) & abs(n - round(n)) < 1e-9
+  dec <- !is.na(n) & !whole
+  out[whole] <- formatC(n[whole], format = "f", digits = 0, big.mark = ",")
+  out[dec] <- formatC(round(n[dec], 1), format = "f", digits = 1, big.mark = ",")
+  out
+}
+key <- function(x) tolower(trimws(x))
+
+d <- epi_data %>%
+  filter(Types == "DHIS2", Country == "Mozambique", as.character(Year) == "2022")
+
+# Group, label and order come from the display list. Anything not on the
+# list goes to the end under 'Other'; rows marked 'hidden' are left out.
+pos <- match(key(d$Metric), key(disp$Metric))
+d$Group <- ifelse(is.na(pos), "Other", disp$Group[pos])
+d$Label <- ifelse(is.na(pos) | is.na(disp$Label[pos]), d$Metric, disp$Label[pos])
+d$Order <- ifelse(is.na(pos), 1e6 + seq_len(nrow(d)), pos)
+d <- d[d$Group != "hidden", ]
+group_levels <- unique(c(disp$Group[disp$Group != "hidden"], "Other"))
+d <- d[order(match(d$Group, group_levels), d$Order), ]
+
+# One shared source? Then say it once under the table.
+base <- trimws(sub(",?\\s*Table\\s+\\d+\\s*$", "", d$Source))
+ref  <- ifelse(grepl("Table\\s+\\d+\\s*$", d$Source), sub("^.*(Table\\s+\\d+)\\s*$", "\\1", d$Source), "")
+lnk  <- ifelse(is.na(d$Link), "", d$Link)
+one_source <- length(unique(base)) == 1 && length(unique(lnk)) == 1 &&
+  length(unique(d$Retrieved_via)) == 1
+
+tbl <- data.frame(Indicator = esc(d$Label), Value = fmt(d$Value),
+                  Unit = ifelse(d$Unit == "text", "", esc(d$Unit)),
+                  stringsAsFactors = FALSE)
+if (one_source) {
+  if (any(ref != "")) tbl$Ref <- ref
+} else {
+  tbl$Source <- ifelse(lnk == "", esc(d$Source), paste0("<a href='", lnk, "'>", esc(d$Source), "</a>"))
+  tbl$`Retrieved via` <- esc(d$Retrieved_via)
+}
+tbl[is.na(tbl)] <- ""
+
+idx <- table(factor(d$Group, levels = unique(d$Group)))
+k <- kbl(tbl, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = TRUE, font_size = 13) %>%
+  row_spec(0, bold = TRUE, background = "#1F3A5F", color = "white") %>%
+  pack_rows(index = setNames(as.integer(idx), names(idx)),
+            label_row_css = "background-color: #EEF2F7; color: #1F3A5F; font-weight: 600;")
+
+note <- ""
+if (one_source) {
+  src <- if (lnk[1] == "") esc(base[1]) else paste0("<a href='", lnk[1], "'>", esc(base[1]), "</a>")
+  note <- paste0("<p><em>Source: ", src, " (2022 data). Retrieved via: ",
+                 esc(d$Retrieved_via[1]), ".</em></p>")
+}
+knitr::asis_output(paste0(as.character(k), note))
+```
+
 
 
 ### 6b. Survey-derived indicators (prevalence / mortality)
@@ -140,64 +223,14 @@ with gaps shown as NA where an indicator was not measured in that round.
 
 **Table 3:**  Malaria survey indicators.
 
-| Indicator | Value | Year | Source (Survey name) |
-|:---|:---|:---|:---|
-| Malaria prevalence according to RDT | 32.3 | 2022-23 | DHS |
-| Malaria prevalence according to RDT | 38.9 | 2018 | MIS |
-| Malaria prevalence according to RDT | 40.2 | 2015 | AIS |
-| Malaria prevalence according to RDT | 38.3 | 2011 | DHS |
-| Malaria prevalence according to microscopy | NA | 2022-23 | DHS |
-| Malaria prevalence according to microscopy | NA | 2018 | MIS |
-| Malaria prevalence according to microscopy | NA | 2015 | AIS |
-| Malaria prevalence according to microscopy | 35.1 | 2011 | DHS |
-| Households with at least one insecticide-treated mosquito net (ITN) | 56.5 | 2022-23 | DHS |
-| Households with at least one insecticide-treated mosquito net (ITN) | 82.2 | 2018 | MIS |
-| Households with at least one insecticide-treated mosquito net (ITN) | 66.0 | 2015 | AIS |
-| Households with at least one insecticide-treated mosquito net (ITN) | 51.4 | 2011 | DHS |
-| Net source: Mass distribution campaign | 78.5 | 2022-23 | DHS |
-| Net source: Mass distribution campaign | 88.7 | 2018 | MIS |
-| Net source: Mass distribution campaign | NA | 2015 | AIS |
-| Net source: Mass distribution campaign | NA | 2011 | DHS |
-| Persons with access to an insecticide-treated mosquito net (ITN) | 44.8 | 2022-23 | DHS |
-| Persons with access to an insecticide-treated mosquito net (ITN) | 68.5 | 2018 | MIS |
-| Persons with access to an insecticide-treated mosquito net (ITN) | 53.8 | 2015 | AIS |
-| Persons with access to an insecticide-treated mosquito net (ITN) | 37.0 | 2011 | DHS |
-| Population who slept under an insecticide-treated mosquito net (ITN) last night | 38.6 | 2022-23 | DHS |
-| Population who slept under an insecticide-treated mosquito net (ITN) last night | 68.4 | 2018 | MIS |
-| Population who slept under an insecticide-treated mosquito net (ITN) last night | 45.4 | 2015 | AIS |
-| Population who slept under an insecticide-treated mosquito net (ITN) last night | 29.5 | 2011 | DHS |
-| Existing insecticide-treated mosquito nets (ITNs) used last night | 72.3 | 2022-23 | DHS |
-| Existing insecticide-treated mosquito nets (ITNs) used last night | 85.4 | 2018 | MIS |
-| Existing insecticide-treated mosquito nets (ITNs) used last night | 70.9 | 2015 | AIS |
-| Existing insecticide-treated mosquito nets (ITNs) used last night | 68.3 | 2011 | DHS |
-| Households with indoor residual spraying (IRS) in last 12 months | NA | 2022-23 | DHS |
-| Households with indoor residual spraying (IRS) in last 12 months | 15.6 | 2018 | MIS |
-| Households with indoor residual spraying (IRS) in last 12 months | 11.2 | 2015 | AIS |
-| Households with indoor residual spraying (IRS) in last 12 months | 18.5 | 2011 | DHS |
-| SP/Fansidar 2+ doses during pregnancy | 45.5 | 2022-23 | DHS |
-| SP/Fansidar 2+ doses during pregnancy | 60.8 | 2018 | MIS |
-| SP/Fansidar 2+ doses during pregnancy | 35.8 | 2015 | AIS |
-| SP/Fansidar 2+ doses during pregnancy | 19.6 | 2011 | DHS |
-| SP/Fansidar 3+ doses during pregnancy | 25.3 | 2022-23 | DHS |
-| SP/Fansidar 3+ doses during pregnancy | 40.6 | 2018 | MIS |
-| SP/Fansidar 3+ doses during pregnancy | 23.3 | 2015 | AIS |
-| SP/Fansidar 3+ doses during pregnancy | 9.5 | 2011 | DHS |
-| Children under 5 with fever in the last two weeks | 10.2 | 2022-23 | DHS |
-| Children under 5 with fever in the last two weeks | 31.0 | 2018 | MIS |
-| Children under 5 with fever in the last two weeks | 29.1 | 2015 | AIS |
-| Children under 5 with fever in the last two weeks | 13.4 | 2011 | DHS |
-| Children with fever for whom advice or treatment was sought, the source was a public sector facility | 94.1 | 2022-23 | DHS |
-| Children with fever for whom advice or treatment was sought, the source was a public sector facility | 95.9 | 2018 | MIS |
-| Children with fever for whom advice or treatment was sought, the source was a public sector facility | 88.0 | 2015 | AIS |
-| Children with fever for whom advice or treatment was sought, the source was a public sector facility | 88.4 | 2011 | DHS |
-| Children with fever for whom advice or treatment was sought, the source was a private sector facility | 1.6 | 2022-23 | DHS |
-| Children with fever for whom advice or treatment was sought, the source was a private sector facility | 2.1 | 2018 | MIS |
-| Children with fever for whom advice or treatment was sought, the source was a private sector facility | 2.5 | 2015 | AIS |
-| Children with fever for whom advice or treatment was sought, the source was a private sector facility | 1.7 | 2011 | DHS |
-| Children who took any ACT | 85.0 | 2022-23 | DHS |
-| Children who took any ACT | 98.6 | 2018 | MIS |
-| Children who took any ACT | 92.6 | 2015 | AIS |
-| Children who took any ACT | 59.9 | 2011 | DHS |
+
+```{r}
+#| echo: false
+#| message: false
+source("../R/statcompiler.R")
+survey_table("../submissions/mozambique/STATcompilerExport2026913_17924.xlsx", "Mozambique", "../config/display_survey.csv", n_rounds = 5)
+```
+
 ---
 
 
