@@ -1,0 +1,7 @@
+section,fig_id,script,plot_fn,text_fn,width,height,height_fn,extra_fn,extra_title,needs_sheet,needs_path,img_match,lead_fn
+3,admin-map,fig_admin_map.R,fig_admin_map,fig_admin_map_text,9,6.5,,,,,data/boundaries/{slug}/adm2.gpkg,,
+5,timeline,fig_timeline.R,fig_timeline,fig_timeline_text,12,,fig_timeline_height,timeline_sources,Timeline sources,Timeline,,,
+7,health-system,fig_health_system.R,fig_health_system,fig_health_system_text,12.4,,fig_health_system_height,,,Health_system,,HS-diagram,
+7,facility-map,fig_facility_map.R,fig_facility_map,fig_facility_map_text,9,7,,,,Facilities,,facilities_points_map,facility_text_map
+7,facility-rank,fig_facility_rank.R,fig_facility_rank,fig_facility_rank_text,9,,fig_facility_rank_height,,,Facilities,,facilities_by_province,facility_text_rank
+10,vectors,sec10_vector_profile.R,fig_vectors,fig_vectors_text,11,,fig_vectors_height,,,,data/vectors/{slug}/vector_by_district.csv,vector_distribution,

@@ -68,10 +68,14 @@ table tbody tr:nth-child(even) {
   background-color: #F7F9FB;
 }
 
-/* ---------- Source / caption lines ----------
-   Targets the italic "*source-...*" and bold "**Figure:**" lines
-   researchers write directly in their markdown. */
-p em {
+/* ---------- Source lines ----------
+   One look for every Source line (figures and tables): small, muted,
+   upright text with a bold "Source:" label. Italics are reserved for
+   scientific names and for words the author chooses to emphasise. */
+.det-source, .det-source p {
   color: #6B6B6B;
   font-size: 0.9rem;
+  font-style: normal;
+  margin: 0.2rem 0 1.4rem 0;
 }
+.det-source strong { color: #4B5563; }

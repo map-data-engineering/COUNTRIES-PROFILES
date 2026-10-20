@@ -7,6 +7,13 @@
 #                                                  arranged by config/display_dhis2.csv
 #   Section 6b table (survey indicators) ........ raw StatCompiler export, read only,
 #                                                  arranged by config/display_survey.csv
+#   Script-built figures (admin map, timeline) .. config/figures.csv lists which
+#                                                  figure replaces the Nth image in
+#                                                  which section. The caption and
+#                                                  source line come from the figure
+#                                                  script. If a figure's inputs are
+#                                                  missing, the researcher's own
+#                                                  image is kept and a note is printed.
 #
 # Writes a *_TEST.qmd so you can review before replacing the live page.
 #
@@ -278,7 +285,7 @@ tbl <- data.frame(Indicator = esc(d$Label), Value = fmt(d$Value),
                   Unit = ifelse(d$Unit == "text", "", esc(d$Unit)),
                   stringsAsFactors = FALSE)
 if (one_source) {
-  if (any(ref != "")) tbl$Ref <- ref
+  if (any(ref != "")) tbl$Refer <- ref
 } else {
   tbl$Source <- ifelse(lnk == "", esc(d$Source), paste0("<a href='", lnk, "'>", esc(d$Source), "</a>"))
   tbl$`Retrieved via` <- esc(d$Retrieved_via)
@@ -295,8 +302,10 @@ k <- kbl(tbl, escape = FALSE) %>%
 note <- ""
 if (one_source) {
   src <- if (lnk[1] == "") esc(base[1]) else paste0("<a href='", lnk[1], "'>", esc(base[1]), "</a>")
-  note <- paste0("<p><em>Source: ", src, " (@@YEAR@@ data). Retrieved via: ",
-                 esc(d$Retrieved_via[1]), ".</em></p>")
+  note <- paste0("<p class='det-source'><strong>Source:</strong> ", src, " (@@YEAR@@ data). Retrieved via: ",
+                 esc(d$Retrieved_via[1]), ".",
+                 if (any(ref != "")) " Refer gives the table number in the source document, not a table on this page." else "",
+                 "</p>")
 }
 knitr::asis_output(paste0(as.character(k), note))
 ```
@@ -331,9 +340,205 @@ kci_chunk    <- make_table_chunk("KCI")
 dhis2_chunk  <- make_dhis2_chunk()
 survey_chunk <- make_survey_chunk()
 
+# ---------- 6a2. Which DET-built pieces can be used for this country ----------
+sheets_present <- openxlsx::getSheetNames(epi_table_path)
+use_res   <- "Insecticide_susceptibility" %in% sheets_present && file.exists(file.path("R", "sec10_vector_profile.R"))
+use_mech  <- use_res && "Resistance_mechanisms" %in% sheets_present
+use_refs  <- file.exists(file.path("R", "references.R"))
+if (use_res)  cat("Section 10 tables 9a", if (use_mech) "and 9b", "will be built from the epi table tabs.\n")
+if (!use_res) cat("No 'Insecticide_susceptibility' tab: the researcher's typed Section 10 tables are kept.\n")
+if (use_refs) cat("Section 11 will be arranged by R/references.R.\n")
+
+# ---------- 6b. Script-built figures ----------
+# Each row of config/figures.csv replaces the next image block (image line,
+# "Figure N" line, Source line) in its section with a live R chunk that draws
+# the figure at build time. Quarto numbers these figures automatically.
+figures_path <- file.path("config", "figures.csv")
+fig_rows <- if (file.exists(figures_path)) {
+  read.csv(figures_path, stringsAsFactors = FALSE, na.strings = "")
+} else {
+  cat("No", figures_path, "found: no script-built figures.\n"); NULL
+}
+fig_ok <- logical(0)
+if (!is.null(fig_rows) && nrow(fig_rows) > 0) {
+  need_cols <- c("section", "fig_id", "script", "plot_fn", "text_fn", "width", "height",
+                 "height_fn", "extra_fn", "extra_title", "needs_sheet", "needs_path")
+  if (!all(need_cols %in% names(fig_rows))) {
+    stop(figures_path, " must have columns: ", paste(need_cols, collapse = ", "))
+  }
+  settings_path <- file.path("config", "country_settings.csv")
+  settings_ok <- file.exists(settings_path) &&
+    slug %in% read.csv(settings_path, stringsAsFactors = FALSE)$slug
+  if (!settings_ok) cat("No row for '", slug, "' in ", settings_path,
+                        ". Script-built figures are skipped.\n", sep = "")
+  sheets_present <- openxlsx::getSheetNames(epi_table_path)
+
+  fig_ok <- vapply(seq_len(nrow(fig_rows)), function(k) {
+    r <- fig_rows[k, ]
+    skip <- function(why) { cat("Skipping figure '", r$fig_id, "': ", why,
+                                ". The researcher's own image is kept.\n", sep = ""); FALSE }
+    if (!settings_ok) return(FALSE)
+    if (!file.exists(file.path("R", r$script))) return(skip(paste0("R/", r$script, " not found")))
+    if (!is.na(r$needs_sheet) && !(r$needs_sheet %in% sheets_present))
+      return(skip(paste0("the epi table has no '", r$needs_sheet, "' sheet")))
+    if (!is.na(r$needs_path)) {
+      p <- gsub("{slug}", slug, r$needs_path, fixed = TRUE)
+      if (!file.exists(p)) return(skip(paste0(p, " not found")))
+    }
+    TRUE
+  }, logical(1))
+  cat(sum(fig_ok), "of", nrow(fig_rows), "script-built figures will be used.\n\n")
+}
+
+# The page runs from inside countries/, but the figure scripts read paths
+# from the repo root, so every call goes through with_root().
+make_setup_chunk <- function(scripts) {
+  paste(c("```{r}", "#| include: false",
+          'with_root <- function(expr) { old <- setwd(".."); on.exit(setwd(old)); expr }',
+          "with_root({", paste0('  source("R/', scripts, '")'), "})",
+          "```", "", ""), collapse = "\n")
+}
+
+res_chunk <- function(fn) {
+  paste(c("```{r}", "#| echo: false", "#| message: false",
+          paste0('knitr::kable(with_root(', fn, '("', slug, '")), escape = FALSE, align = "l")'),
+          "```"), collapse = "\n")
+}
+
+make_refs_chunk <- function(used) {
+  u <- paste0("c(", paste0('"', used, '"', collapse = ", "), ")")
+  if (length(used) == 0) u <- "character(0)"
+  paste(c("```{r}", "#| echo: false", "#| results: asis",
+          paste0('cat(with_root(render_references("', slug, '", ', u, ')), sep = "\\n")'),
+          "```"), collapse = "\n")
+}
+
+make_lead_chunk <- function(fn) {
+  paste(c("```{r}", "#| echo: false", "#| results: asis", "#| message: false", "#| warning: false",
+          paste0('cat(with_root(', fn, '("', slug, '")))'), "```", "", ""), collapse = "\n")
+}
+
+
+# One look for every Source line, and italic scientific names throughout.
+source(file.path("R", "text_utils.R"))
+
+standardise_source_lines <- function(lines) {
+  out <- character(0); in_code <- FALSE
+  for (ln in lines) {
+    if (grepl("^\\s*```", ln)) in_code <- !in_code
+    if (!in_code) {
+      ln <- sub("^\\*Source:?\\s*(.*?)\\*\\s*$", "**Source:** \\1", ln, perl = TRUE)   # *Source: ...*  ->  **Source:** ...
+      if (grepl("^\\*\\*Source:?\\*\\*:?\\s*\\S", ln)) {
+        ln <- sub("^\\*\\*Source:?\\*\\*:?\\s*", "**Source:** ", ln)
+        out <- c(out, "", "::: {.det-source}", ln, ":::", ""); next
+      }
+    }
+    out <- c(out, ln)
+  }
+  out
+}
+
+italicise_lines <- function(lines) {
+  in_code <- FALSE
+  for (i in seq_along(lines)) {
+    if (grepl("^\\s*```", lines[i])) { in_code <- !in_code; next }
+    if (in_code || grepl("^\\s*(#|<|!\\[|:::)", lines[i])) next
+    lines[i] <- italicise_species(lines[i])
+  }
+  lines
+}
+
+# Researcher images: turn  ![..](path)  followed by  **Figure N** caption  into a
+# Quarto figure, so typed and scripted figures share ONE automatic numbering.
+typed_fig_n <- 0
+number_typed_figures <- function(lines) {
+  out <- character(0); i <- 1; in_code <- FALSE
+  while (i <= length(lines)) {
+    ln <- lines[i]
+    if (grepl("^\\s*```", ln)) in_code <- !in_code
+    m <- regmatches(ln, regexec("^!\\[[^]]*\\]\\((.+)\\)\\s*(\\{[^}]*\\})?\\s*$", ln))[[1]]
+    if (!in_code && length(m) > 0) {
+      k <- i + 1
+      while (k <= length(lines) && !nzchar(trimws(lines[k])) && k - i < 3) k <- k + 1
+      cm <- if (k <= length(lines)) regmatches(lines[k], regexec("^\\*\\*Figure\\s*[0-9]*\\s*[:.]?\\s*\\*\\*\\s*[:.]?\\s*(.*)$", lines[k]))[[1]] else character(0)
+      if (length(cm) > 0 && nzchar(trimws(cm[2]))) {
+        typed_fig_n <<- typed_fig_n + 1
+        cap <- gsub("[][]", "", trimws(cm[2]))
+        out <- c(out, paste0("![", cap, "](", m[2], "){#fig-r", typed_fig_n, "}"))
+        i <- k + 1; next
+      }
+    }
+    out <- c(out, ln); i <- i + 1
+  }
+  out
+}
+
+make_fig_chunk <- function(r) {
+  id <- r$fig_id; v <- gsub("-", "_", id)
+  q  <- function(x) paste0('"', x, '"')
+  h  <- if (!is.na(r$height_fn)) paste0("!expr with_root(", r$height_fn, "(", q(slug), "))") else
+          as.character(ifelse(is.na(r$height), 6.5, r$height))
+  parts <- c(
+    "```{r}", "#| include: false",
+    paste0("txt_", v, " <- with_root(", r$text_fn, "(", q(slug), "))"),
+    "```", "",
+    "```{r}",
+    paste0("#| label: fig-", id),
+    "#| echo: false", "#| message: false", "#| warning: false",
+    paste0("#| fig-cap: !expr txt_", v, "$caption"),
+    paste0("#| fig-width: ", r$width),
+    paste0("#| fig-height: ", h),
+    paste0("with_root(", r$plot_fn, "(", q(slug), "))"),
+    "```", "",
+    paste0("**Source:** `r italicise_species(txt_", v, "$source)`"), "")
+  if (!is.na(r$extra_fn)) {
+    parts <- c(parts, "```{r}", "#| echo: false", "#| results: asis",
+               paste0('cat("<details><summary>', r$extra_title, '</summary>\\n\\n")'),
+               paste0("print(knitr::kable(with_root(", r$extra_fn, "(", q(slug), "))))"),
+               'cat("\\n\\n</details>\\n")', "```", "")
+  }
+  paste(parts, collapse = "\n")
+}
+
+# Replace the first image block in a section: the image line plus any
+# directly following "**Figure ...**" and "**Source:**" lines.
+replace_figure_block <- function(lines, replacement, match = NA, drop_para = FALSE, id = NA) {
+  ## A marker line "<!-- DET-FIGURE: <fig_id> -->" in the profile says exactly where a
+  ## scripted figure goes. If there is one, it wins; otherwise fall back to the image lines.
+  marker <- if (!is.na(id)) which(grepl(paste0("DET-FIGURE:\\s*", id, "\\b"), lines)) else integer(0)
+  img <- if (length(marker)) marker else which(grepl("^\\s*!\\[", lines))
+  ## Optional: only take the image whose line matches this text (figures.csv column img_match)
+  if (!length(marker) && !is.na(match) && nzchar(match)) img <- img[grepl(match, lines[img], ignore.case = TRUE)]
+  if (length(img) == 0) return(c(lines, "", replacement))
+  i <- img[1]; j <- i
+  ## When the text above the figure is generated from data, drop the researcher's own paragraph
+  if (drop_para) {
+    e <- i - 1
+    while (e >= 1 && !nzchar(trimws(lines[e]))) e <- e - 1
+    b <- e
+    while (b >= 1 && nzchar(trimws(lines[b]))) b <- b - 1
+    if (e >= 1 && !grepl("^\\s*(\\*\\*|#)", lines[b + 1]) &&
+        !grepl("```|DET-FIGURE", paste(lines[(b + 1):e], collapse = "\n"))) {   # never drop a generated chunk or marker
+      cat("  Replaced the researcher's paragraph with generated text: \"", substr(trimws(lines[b + 1]), 1, 60), "...\"\n", sep = "")
+      lines <- lines[-((b + 1):e)]
+      i <- i - (e - b); j <- i
+    }
+  }
+  ## swallow the caption and Source lines that follow, allowing blank lines between them
+  repeat {
+    k <- j + 1
+    while (k <= length(lines) && !nzchar(trimws(lines[k]))) k <- k + 1
+    if (k <= length(lines) && grepl("^\\s*\\*\\*(Figure|Source)", lines[k]) && k - i < 8) j <- k else break
+  }
+  c(lines[seq_len(i - 1)], replacement, if (j < length(lines)) lines[(j + 1):length(lines)])
+}
+
 # ---------- 7. Assemble ----------
 yaml_header <- paste0("---\n", "title: \"", country_name, " Malaria Epidemiology Summary\"\n",
                       "format: html\n", "---\n\n")
+setup_scripts <- unique(c("text_utils.R", if (length(fig_ok)) fig_rows$script[fig_ok],
+                          if (use_res) "sec10_vector_profile.R", if (use_refs) "references.R"))
+if (length(setup_scripts)) yaml_header <- paste0(yaml_header, make_setup_chunk(setup_scripts))
 
 body_parts <- c()
 for (n in as.character(1:11)) {
@@ -353,9 +558,67 @@ for (n in as.character(1:11)) {
     i6b <- grep("^### 6b", lines)            # positions moved after the 6a swap
     lines <- replace_first_table(lines, survey_chunk, from = i6b, to = length(lines))
   }
+  if (n == "10" && use_res) {
+    i9a <- grep("^#+\\s*Table 9a", lines); i9b <- grep("^#+\\s*Table 9b", lines)
+    if (length(i9a) == 1) {
+      end <- if (length(i9b) == 1 && i9b > i9a) i9b - 1 else length(lines)
+      lines <- replace_first_table(lines, res_chunk("tbl_susceptibility"), from = i9a, to = end)
+    } else cat("Section 10: no single '### Table 9a' heading found, typed table kept.\n")
+    i9b <- grep("^#+\\s*Table 9b", lines)
+    if (use_mech && length(i9b) == 1) lines <- replace_first_table(lines, res_chunk("tbl_mechanisms"), from = i9b, to = length(lines))
+  }
+  if (n == "11" && use_refs) {
+    used <- c(if (length(fig_ok) && any(fig_ok & fig_rows$fig_id == "admin-map")) "boundaries",
+              if (length(fig_ok) && any(fig_ok & grepl("^facility", fig_rows$fig_id))) "facilities",
+              if (length(fig_ok) && any(fig_ok & fig_rows$fig_id == "vectors")) "vectors")
+    lines <- replace_first_table(lines, make_refs_chunk(used))
+  }
+  for (k in if (length(fig_ok)) which(fig_rows$section == as.integer(n) & fig_ok) else integer(0)) {
+    lead <- if ("lead_fn" %in% names(fig_rows) && !is.na(fig_rows$lead_fn[k])) fig_rows$lead_fn[k] else NA
+    lines <- replace_figure_block(lines,
+                                  paste0(if (!is.na(lead)) make_lead_chunk(lead) else "", make_fig_chunk(fig_rows[k, ])),
+                                  if ("img_match" %in% names(fig_rows)) fig_rows$img_match[k] else NA,
+                                  drop_para = !is.na(lead),
+                                  id = fig_rows$fig_id[k])
+  }
+
+  lines <- number_typed_figures(lines)
+  lines <- standardise_source_lines(lines)
+  lines <- italicise_lines(lines)
 
   body_parts <- c(body_parts, paste0("## ", n, ". ", sec$name, "\n"), paste(lines, collapse = "\n"), "\n\n")
 }
+
+
+# ---------- Abbreviations: the researcher's own 'Abbreviations' tab ----------
+ab <- NULL
+if ("Abbreviations" %in% openxlsx::getSheetNames(epi_table_path)) {
+  ab <- tryCatch(openxlsx::read.xlsx(epi_table_path, "Abbreviations"), error = function(e) NULL)
+  if (!is.null(ab) && all(c("Abbreviation", "Meaning") %in% names(ab))) {
+    ab <- ab[!is.na(ab$Abbreviation) & nzchar(trimws(ab$Abbreviation)) &
+             !is.na(ab$Meaning) & nzchar(trimws(ab$Meaning)), c("Abbreviation", "Meaning")]
+    ab$Abbreviation <- trimws(ab$Abbreviation)
+    ab <- ab[!duplicated(ab$Abbreviation), ]
+    ab <- ab[order(toupper(ab$Abbreviation)), ]
+  } else ab <- NULL
+}
+if (!is.null(ab) && nrow(ab) > 0) {
+  tbl_md <- c("", "## Abbreviations", "",
+              "| Abbreviation | Meaning |", "|---|---|",
+              paste0("| ", ab$Abbreviation, " | ", ab$Meaning, " |"), "")
+  body_parts <- c(body_parts, paste(tbl_md, collapse = "\n"))
+} else {
+  cat("\nNo 'Abbreviations' tab (or it is empty) in the epi table. Ask the researcher to list their abbreviations.\n")
+}
+## Check: capital-letter terms in the text that the researcher did not list
+dat <- tryCatch(unlist(openxlsx::read.xlsx(epi_table_path, "Data")), error = function(e) "")
+txt <- paste(c(unlist(body_parts), as.character(dat)), collapse = "\n")
+txt <- gsub("(?s)```\\{r\\}.*?```", " ", txt, perl = TRUE)
+txt <- gsub("https?://\\S+", " ", txt)
+toks <- unique(unlist(regmatches(txt, gregexpr("\\b[A-Z][A-Z0-9]{1,7}\\b", txt))))
+unknown <- setdiff(toks, if (is.null(ab)) character(0) else ab$Abbreviation)
+if (length(unknown)) cat("\nCapital-letter terms not in the Abbreviations tab (add the real abbreviations, ignore the rest):\n  ",
+                         paste(sort(unknown), collapse = ", "), "\n", sep = "")
 
 final_qmd <- paste0(yaml_header, paste(body_parts, collapse = "\n"))
 writeLines(final_qmd, output_path, useBytes = TRUE)
@@ -365,4 +628,11 @@ cat("Section 2 table read from epi table: Types = KCI\n")
 cat("Section 6a table read from epi table: Types = DHIS2, Year =", dhis2_year, ", arranged by", display_path, "\n")
 cat("Section 6b table read from the raw StatCompiler file:", sc_file, ", most recent", survey_rounds, "rounds\n")
 cat("Path baked into the chunks (should start with '../'):", epi_table_rel_path, "\n")
+if (any(fig_ok)) cat("Script-built figures in this page:", paste(fig_rows$fig_id[fig_ok], collapse = ", "), "\n")
+if (use_res || use_refs) {
+  cat("\nChecks:\n")
+  with_root_here <- function(f) tryCatch(f(), error = function(e) cat("  ", conditionMessage(e), "\n"))
+  if (use_res)  with_root_here(function() { source(file.path("R", "sec10_vector_profile.R")); resistance_checks(slug) })
+  if (use_refs) with_root_here(function() { source(file.path("R", "references.R")); reference_checks(slug) })
+}
 cat("\nNext: quarto::quarto_render('", output_path, "')\n", sep = "")
