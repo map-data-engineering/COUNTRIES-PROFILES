@@ -185,8 +185,8 @@ survey_table <- function(path, country, display_csv, n_rounds = 5) {
 
   src <- if (is.na(cite)) "The DHS Program STATcompiler" else esc(cite)
   src <- sub("http://www.statcompiler.com", "<a href='http://www.statcompiler.com'>www.statcompiler.com</a>", src, fixed = TRUE)
-  note <- paste0("<p><em>Source: ", src, " (export file: ", esc(attr(sc, "file")), "). ",
+  note <- paste0("<p class='det-source'><strong>Source:</strong> ", src, " (export file: ", esc(attr(sc, "file")), "). ",
                  "Confidence intervals are shown for prevalence and mortality. ",
-                 "A dash means the indicator was not measured in that survey.</em></p>")
+                 "A dash means the indicator was not measured in that survey.</p>")
   knitr::asis_output(paste0(as.character(k), note))
 }
