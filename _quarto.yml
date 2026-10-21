@@ -30,6 +30,8 @@ website:
             text: Nigeria
           - href: countries/mozambique.qmd
             text: Mozambique
+          - href: countries/mozambique_TEST.qmd
+            text: Mozambique (draft)  
           - href: countries/angola.qmd
             text: Angola
   page-footer:
