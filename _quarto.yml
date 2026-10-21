@@ -4,10 +4,12 @@ project:
     - "*.qmd"
     - "countries/*.qmd"
     - "!submissions/"
+    - "!countries/*_TEST.qmd"
 
 execute:
   freeze: auto
   
+
 website:
   title: "Malaria Country Profiles"
   site-url: "https://map-data-engineering.github.io/COUNTRIES-PROFILES/"
@@ -30,8 +32,6 @@ website:
             text: Nigeria
           - href: countries/mozambique.qmd
             text: Mozambique
-          - href: countries/mozambique_TEST.qmd
-            text: Mozambique (draft)  
           - href: countries/angola.qmd
             text: Angola
   page-footer:
