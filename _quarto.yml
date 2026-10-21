@@ -5,6 +5,9 @@ project:
     - "countries/*.qmd"
     - "!submissions/"
 
+execute:
+  freeze: auto
+  
 website:
   title: "Malaria Country Profiles"
   site-url: "https://map-data-engineering.github.io/COUNTRIES-PROFILES/"
