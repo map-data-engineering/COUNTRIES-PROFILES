@@ -25,9 +25,9 @@ library(dplyr)
 library(openxlsx)
 
 # ---------- 1. Settings: the only lines to change for another country ----------
-country_name <- "Mozambique"
-slug         <- "mozambique"   # folder name under submissions/
-dhis2_year   <- "2022"         # year shown in Section 6a. Must match the year in the .md caption.
+country_name <- "Benin"
+slug         <- "benin"   # folder name under submissions/
+dhis2_year   <- "2023"         # year shown in Section 6a. Must match the year in the .md caption.
 survey_rounds <- 5             # most recent survey rounds shown in Section 6b
 
 sub_dir     <- file.path("submissions", slug)
@@ -65,7 +65,7 @@ need <- c("Types", "Country", "Metric", "Year", "Value", "Unit", "Source", "Link
 miss <- setdiff(need, names(epi_check))
 if (length(miss) > 0) {
   stop("The epi table is missing column(s): ", paste(miss, collapse = ", "),
-       ". Please use epi_table_TEMPLATE_v2.xlsx.")
+       ". Copy the missing column(s) into the Data tab from epi_table_TEMPLATE.xlsx (researcher_pack), keeping the header names exactly.")
 }
 mine <- epi_check[!is.na(epi_check$Country) & epi_check$Country == country_name, ]
 cat("Epi table rows for", country_name, "by Types:\n")
