@@ -32,7 +32,7 @@ website:
   page-footer:
     background: light
     left: "© 2026 MAP Data Engineering Team"
-    right: "Malaria Country Profiles"
+    right: "Better data. Better decisions. Healthier communities."
 
 format:
   html:

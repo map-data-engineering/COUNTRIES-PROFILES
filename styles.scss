@@ -1,11 +1,11 @@
 /*-- scss:defaults --*/
 
-$primary:       #8a6200;
-$primary-dark:  #4a3500;
-$accent:        #e6b800;
+$primary:       #2f6fed;
+$primary-dark:  #15233f;
+$accent:        #14b8a6;
 
-$body-bg:       #f6f8f7;
-$body-color:    #1d2b2e;
+$body-bg:       #f6f8fb;
+$body-color:    #44546b;
 $link-color:    $primary;
 
 $navbar-bg:     #262626;
@@ -27,6 +27,21 @@ $border-radius: 0.5rem;
   border-radius: 50rem;
 }
 
+.btn-primary-pill {
+  background: $primary;
+  border-color: $primary;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.7rem 1.6rem;
+}
+
+.btn-primary-pill:hover,
+.btn-primary-pill:focus {
+  background: darken($primary, 8%);
+  border-color: darken($primary, 8%);
+  color: #ffffff;
+}
+
 // Quarto's page-columns grid enforces a >=500px content column that
 // does not collapse below ~530px viewports; drop the grid on narrow
 // screens so content uses the full width instead of overflowing.
@@ -36,241 +51,302 @@ $border-radius: 0.5rem;
   }
 }
 
-// ---- Hero -----------------------------------------------------------
-
 // The suppressed (empty) title-block still reserves its usual top
 // spacing (#quarto-content>* padding-top, plus the empty header's own
 // margin) — drop both, scoped to pages that have a hero (the home page)
 // so other pages keep their normal title spacing.
-main.content:has(.hero) {
+main.content:has(.hero-light) {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
-main.content:has(.hero) #title-block-header {
+main.content:has(.hero-light) #title-block-header {
   display: none;
 }
 
-.hero {
-  position: relative;
-  background: $primary-dark;
-  color: #ffffff;
-  text-align: center;
-  overflow: hidden;
+// ---- Hero (light) -------------------------------------------------------
+
+.hero-light {
+  background: linear-gradient(180deg, #eef3fb 0%, #f6f8fb 100%);
+  padding: 3.5rem 1.5rem;
 }
 
-.hero-bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 70%;
-  z-index: 0;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(135deg, rgba(74, 53, 0, 0.65) 0%, rgba(138, 98, 0, 0.55) 55%, rgba(138, 98, 0, 0.38) 100%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 6.5rem 1.5rem 5.5rem;
-}
-
-.hero-kicker {
-  font-size: 1.0rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 0.85rem;
-}
-
-.hero-title {
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  margin-bottom: 1.1rem;
-
-  span {
-    display: block;
-  }
-}
-
-.hero-title-accent {
-  color: $accent;
-  font-size: clamp(1.7rem, 4.4vw, 2.9rem);
-}
-
-.hero-title-base {
-  color: #ffffff;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-}
-
-.hero-subtitle {
-  max-width: 42rem;
-  margin: 0 auto 2rem;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1.6;
-}
-
-.hero .btn-cta {
-  background: $accent;
-  border-color: $accent;
-  color: $primary-dark;
-  font-weight: 600;
-  padding: 0.65rem 1.6rem;
-}
-
-.hero .btn-cta:hover,
-.hero .btn-cta:focus {
-  background: darken($accent, 8%);
-  border-color: darken($accent, 8%);
-  color: $primary-dark;
-}
-
-.hero .btn-ghost {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.65rem 1.6rem;
-}
-
-.hero .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: #ffffff;
-  color: #ffffff;
-}
-
-.dropdown-menu-hero {
-  --bs-dropdown-min-width: 14rem;
-  padding: 0.4rem;
-}
-
-.dropdown-menu-hero .dropdown-item {
-  border-radius: 0.35rem;
-  padding: 0.5rem 0.75rem;
-}
-
-.hero-stats {
+.hero-grid {
+  max-width: 72rem;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-  margin-top: 3rem;
-}
-
-.hero-stat-number {
-  font-weight: 800;
-  font-size: 2rem;
-  line-height: 1;
-  color: $accent;
-}
-
-.hero-stat-label {
-  margin-top: 0.35rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.hero-scroll-cue {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-top: 2.75rem;
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  color: #ffffff;
-  font-size: 1.2rem;
-  line-height: 1;
-  text-decoration: none;
-  animation: hero-scroll-bounce 2s infinite;
+  gap: 3rem;
+  flex-wrap: wrap;
 }
 
-.hero-scroll-cue:hover {
-  border-color: #ffffff;
-  color: #ffffff;
+.hero-copy {
+  flex: 1 1 26rem;
+  min-width: 0;
 }
 
-@keyframes hero-scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(5px); }
-}
-
-// ---- Feature strip (bootstrap cards) ------------------------------------
-
-.feature-strip {
-  padding: 4rem 1rem;
-}
-
-.section-intro {
-  max-width: 38rem;
-  margin: 0 auto 2.5rem;
-}
-
-.section-eyebrow {
+.hero-eyebrow {
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $primary;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
-.section-title {
+.hero-heading {
   font-weight: 800;
-  color: $body-color;
-  margin-bottom: 0.6rem;
-}
-
-.text-accent {
-  color: $primary;
-}
-
-.section-subtitle {
-  color: #5a6a6c;
-  margin-bottom: 0;
-}
-
-.feature-card {
-  --bs-card-bg: #ffffff;
-  border: 1px solid rgba(138, 98, 0, 0.12);
-  box-shadow: 0 0.35rem 0.9rem rgba(138, 98, 0, 0.06);
-}
-
-.feature-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  font-size: 1.6rem;
-  line-height: 1;
-  border-radius: 0.9rem;
-  background: rgba(230, 184, 0, 0.15);
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  line-height: 1.2;
+  color: $primary-dark;
   margin-bottom: 1rem;
 }
 
-.feature-title {
-  font-weight: 700;
+.hero-lede {
+  color: $body-color;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 34rem;
+  margin-bottom: 1.75rem;
 }
 
-.feature-text {
-  color: #4b5c5e;
-  font-size: 0.92rem;
-  line-height: 1.5;
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-link {
+  font-weight: 600;
+  color: $primary-dark;
+  text-decoration: none;
+}
+
+.hero-link:hover {
+  color: $primary;
+}
+
+.hero-visual {
+  flex: 1 1 22rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.africa-badge {
+  width: 13rem;
+  height: 15rem;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(20, 184, 166, 0.1), transparent 70%);
+}
+
+.africa-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.africa-badge circle {
+  fill: $accent;
+}
+
+.africa-badge circle.madagascar-dot {
+  fill: lighten($accent, 18%);
+}
+
+.hero-stat-card {
+  background: #ffffff;
+  border-radius: 0.9rem;
+  box-shadow: 0 0.6rem 1.5rem rgba(21, 35, 63, 0.08);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 14rem;
+}
+
+.hero-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-stat-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.6rem;
+  background: rgba(47, 111, 237, 0.1);
+}
+
+.hero-stat-row strong {
+  display: block;
+  color: $primary-dark;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.hero-stat-row span.hero-stat-caption {
+  color: $body-color;
+  font-size: 0.82rem;
+}
+
+// ---- Explore countries ----------------------------------------------------
+
+.countries-section {
+  padding: 3.5rem 0 1rem;
+}
+
+.countries-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.section-title-dark {
+  font-weight: 800;
+  color: $primary-dark;
+  margin-bottom: 0.25rem;
+}
+
+.section-subtext {
+  color: $body-color;
   margin-bottom: 0;
+}
+
+.country-search-input {
+  max-width: 16rem;
+  border-radius: 50rem;
+  border-color: #dbe2ef;
+}
+
+.country-grid-new {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+
+.country-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65rem;
+  text-decoration: none;
+  color: $primary-dark;
+  font-weight: 600;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+a.country-tile:hover {
+  border-color: $primary;
+  box-shadow: 0 0.4rem 0.9rem rgba(47, 111, 237, 0.12);
+  transform: translateY(-2px);
+}
+
+.country-flag-sm {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.country-tile-name {
+  flex: 1 1 auto;
+}
+
+.country-tile-chevron {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.country-tile--soon {
+  opacity: 0.6;
+}
+
+.soon-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #64748b;
+  background: #eef2f7;
+  border-radius: 1rem;
+  padding: 0.15rem 0.55rem;
+}
+
+#no-results {
+  color: $body-color;
+}
+
+// ---- What's in each profile strip ----------------------------------------
+
+.sections-strip {
+  background: #eef3fb;
+  margin-top: 3rem;
+}
+
+.sections-strip-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sections-strip-intro {
+  flex: 1 1 16rem;
+}
+
+.sections-strip-intro h3 {
+  font-weight: 800;
+  color: $primary-dark;
+  margin-bottom: 0.4rem;
+}
+
+.sections-strip-intro p {
+  color: $body-color;
+  margin-bottom: 0;
+}
+
+.sections-chip-row {
+  flex: 2 1 32rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 1.4rem;
+}
+
+.section-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 5.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: $body-color;
+  font-weight: 600;
+}
+
+.chip-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.65rem;
+  font-size: 1.15rem;
 }

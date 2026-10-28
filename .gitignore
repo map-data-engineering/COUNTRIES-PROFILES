@@ -13,5 +13,6 @@ quarto_preview_stderr.log
 # the working copy actually referenced by the hero lives in images/)
 HOMEPAGE EXAMPLE.png
 backgroung image.jpg
+country profile home.jpeg
 
 **/*.quarto_ipynb

@@ -4,95 +4,221 @@ page-layout: full
 title-block-banner: false
 ---
 
-:::{.column-screen}
 ```{=html}
-<div class="hero">
-  <img class="hero-bg-img" src="images/hero-background.jpg" alt="" />
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-kicker">Malaria Epidemiological Profiles</div>
-    <h1 class="hero-title">
-      <span class="hero-title-accent">Every Country's Malaria Situation</span>
-      <span class="hero-title-base">In One Standard Format</span>
-    </h1>
-    <p class="hero-subtitle">
-      Source-backed epidemiology profiles burden, interventions, health systems,
-      and vector ecology compiled and maintained by the MAP Data Engineering Team.
-    </p>
-    <div class="d-flex justify-content-center gap-3 flex-wrap">
-      <div class="dropdown">
-        <button class="btn btn-cta btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Browse Country Profiles
-        </button>
-        <ul class="dropdown-menu dropdown-menu-hero">
-          <li><a class="dropdown-item" href="countries/tanzania.qmd">🇹🇿 Tanzania</a></li>
-          <li><a class="dropdown-item" href="countries/cameroon.qmd">🇨🇲 Cameroon</a></li>
-          <li><a class="dropdown-item" href="countries/benin.qmd">🇧🇯 Benin</a></li>
-          <li><a class="dropdown-item" href="countries/burkina-faso.qmd">🇧🇫 Burkina Faso</a></li>
-          <li><a class="dropdown-item" href="countries/nigeria.qmd">🇳🇬 Nigeria</a></li>
-          <li><a class="dropdown-item" href="countries/mozambique.qmd">🇲🇿 Mozambique</a></li>
-          <li><a class="dropdown-item" href="countries/angola.qmd">🇦🇴 Angola</a></li>
-        </ul>
-      </div>
-      <a href="https://www.statcompiler.com" target="_blank" class="btn btn-ghost btn-lg">DHS StatCompiler</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-number">7</div>
-        <div class="hero-stat-label">Countries Live</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">11</div>
-        <div class="hero-stat-label">Sections per Profile</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">1</div>
-        <div class="hero-stat-label">Shared Template</div>
+<section class="hero-light">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Country Profiles for Malaria Research</div>
+      <h1 class="hero-heading">Explore malaria information across every country we cover</h1>
+      <p class="hero-lede">
+        Get a quick overview of malaria in each country — from epidemiology and
+        health systems to environment, climate, and vector ecology. Every
+        profile is built from the same source-backed template.
+      </p>
+      <div class="hero-actions">
+        <a href="#countries" class="btn btn-primary-pill">🧭 Explore Countries</a>
+        <a href="https://www.statcompiler.com" target="_blank" class="hero-link">DHS StatCompiler ›</a>
       </div>
     </div>
-    <a href="#about" class="hero-scroll-cue" aria-label="Scroll down">⌄</a>
+    <div class="hero-visual">
+      <div class="africa-badge">
+        <svg id="africa-dots" viewBox="0 0 170 200" aria-hidden="true"></svg>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-row">
+          <span class="hero-stat-icon">🦟</span>
+          <div><strong>7</strong><span class="hero-stat-caption">Countries covered</span></div>
+        </div>
+        <div class="hero-stat-row">
+          <span class="hero-stat-icon">📍</span>
+          <div><strong>Sub-Saharan Africa</strong><span class="hero-stat-caption">Malaria endemic</span></div>
+        </div>
+        <div class="hero-stat-row">
+          <span class="hero-stat-icon">📄</span>
+          <div><strong>11</strong><span class="hero-stat-caption">Sections per profile</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-```
-:::
+</section>
 
-```{=html}
 <div class="container">
-  <div id="about" class="feature-strip">
-    <div class="section-intro text-center">
-      <div class="section-eyebrow">🧭 OUR APPROACH</div>
-      <h2 class="section-title">One Template. <span class="text-accent">Every Country.</span></h2>
-      <p class="section-subtitle">No matter who submits it, every profile follows the same evidence-backed structure from burden data to vector ecology.</p>
+  <section id="countries" class="countries-section">
+    <div class="countries-heading-row">
+      <div>
+        <h2 class="section-title-dark">Explore countries</h2>
+        <p class="section-subtext">Click a country to view its malaria profile.</p>
+      </div>
+      <input id="country-search" type="text" class="form-control country-search-input" placeholder="Search country…" aria-label="Search country">
     </div>
-    <div class="grid">
-      <div class="g-col-12 g-col-md-4">
-        <div class="card feature-card h-100">
-          <div class="card-body text-center">
-            <div class="feature-icon">🗂️</div>
-            <h3 class="card-title feature-title h5">One structure, every country</h3>
-            <p class="card-text feature-text">Every profile follows the same template introduction, burden, health system, vectors, references so countries are easy to compare.</p>
-          </div>
-        </div>
+
+    <div class="country-grid-new" id="country-grid">
+      <a class="country-tile" href="countries/tanzania.qmd" data-name="tanzania">
+        <span class="country-flag-sm">🇹🇿</span>
+        <span class="country-tile-name">Tanzania</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/cameroon.qmd" data-name="cameroon">
+        <span class="country-flag-sm">🇨🇲</span>
+        <span class="country-tile-name">Cameroon</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/benin.qmd" data-name="benin">
+        <span class="country-flag-sm">🇧🇯</span>
+        <span class="country-tile-name">Benin</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/burkina-faso.qmd" data-name="burkina faso">
+        <span class="country-flag-sm">🇧🇫</span>
+        <span class="country-tile-name">Burkina Faso</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/nigeria.qmd" data-name="nigeria">
+        <span class="country-flag-sm">🇳🇬</span>
+        <span class="country-tile-name">Nigeria</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/mozambique.qmd" data-name="mozambique">
+        <span class="country-flag-sm">🇲🇿</span>
+        <span class="country-tile-name">Mozambique</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+      <a class="country-tile" href="countries/angola.qmd" data-name="angola">
+        <span class="country-flag-sm">🇦🇴</span>
+        <span class="country-tile-name">Angola</span>
+        <span class="country-tile-chevron">›</span>
+      </a>
+
+      <div class="country-tile country-tile--soon" data-name="democratic republic of the congo drc">
+        <span class="country-flag-sm">🇨🇩</span>
+        <span class="country-tile-name">DR Congo</span>
+        <span class="soon-pill">Soon</span>
       </div>
-      <div class="g-col-12 g-col-md-4">
-        <div class="card feature-card h-100">
-          <div class="card-body text-center">
-            <div class="feature-icon">📎</div>
-            <h3 class="card-title feature-title h5">Every figure is sourced</h3>
-            <p class="card-text feature-text">Statistics, tables, and maps carry a year and a source DHS, DHIS2, National Strategic Plans, or peer-reviewed literature.</p>
-          </div>
-        </div>
+      <div class="country-tile country-tile--soon" data-name="ghana">
+        <span class="country-flag-sm">🇬🇭</span>
+        <span class="country-tile-name">Ghana</span>
+        <span class="soon-pill">Soon</span>
       </div>
-      <div class="g-col-12 g-col-md-4">
-        <div class="card feature-card h-100">
-          <div class="card-body text-center">
-            <div class="feature-icon">🔄</div>
-            <h3 class="card-title feature-title h5">Living documents</h3>
-            <p class="card-text feature-text">Profiles are revisited as new surveys, stratifications, and strategic plans are released.</p>
-          </div>
-        </div>
+      <div class="country-tile country-tile--soon" data-name="kenya">
+        <span class="country-flag-sm">🇰🇪</span>
+        <span class="country-tile-name">Kenya</span>
+        <span class="soon-pill">Soon</span>
       </div>
+      <div class="country-tile country-tile--soon" data-name="uganda">
+        <span class="country-flag-sm">🇺🇬</span>
+        <span class="country-tile-name">Uganda</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="zambia">
+        <span class="country-flag-sm">🇿🇲</span>
+        <span class="country-tile-name">Zambia</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="malawi">
+        <span class="country-flag-sm">🇲🇼</span>
+        <span class="country-tile-name">Malawi</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="mali">
+        <span class="country-flag-sm">🇲🇱</span>
+        <span class="country-tile-name">Mali</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="niger">
+        <span class="country-flag-sm">🇳🇪</span>
+        <span class="country-tile-name">Niger</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="rwanda">
+        <span class="country-flag-sm">🇷🇼</span>
+        <span class="country-tile-name">Rwanda</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="senegal">
+        <span class="country-flag-sm">🇸🇳</span>
+        <span class="country-tile-name">Senegal</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="sierra leone">
+        <span class="country-flag-sm">🇸🇱</span>
+        <span class="country-tile-name">Sierra Leone</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+      <div class="country-tile country-tile--soon" data-name="madagascar">
+        <span class="country-flag-sm">🇲🇬</span>
+        <span class="country-tile-name">Madagascar</span>
+        <span class="soon-pill">Soon</span>
+      </div>
+    </div>
+
+    <p id="no-results" class="text-center py-4" style="display:none;">No countries match your search.</p>
+  </section>
+</div>
+
+<section class="sections-strip">
+  <div class="sections-strip-inner">
+    <div class="sections-strip-intro">
+      <h3>What's in each country profile?</h3>
+      <p>Every profile follows the same 11 sections, built from the DET submission template.</p>
+    </div>
+    <div class="sections-chip-row">
+      <div class="section-chip"><span class="chip-icon" style="background:#eef2ff;color:#4f46e5;">📝</span>Introduction</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#eff6ff;color:#2563eb;">📊</span>Summary Statistics</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#ecfeff;color:#0891b2;">🗺️</span>Admin Boundaries</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#fff1f2;color:#e11d48;">🦟</span>Malaria Situation</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#fff7ed;color:#c2410c;">📜</span>History</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#fefce8;color:#a16207;">📈</span>Indicator Summary</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#f0fdf4;color:#15803d;">🏥</span>Health System</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#f5f3ff;color:#6d28d9;">🧭</span>Stratification / SNT</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#ecfdf5;color:#059669;">🌦️</span>Environment</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#fdf2f8;color:#be185d;">🧬</span>Vector Profile</div>
+      <div class="section-chip"><span class="chip-icon" style="background:#f1f5f9;color:#475569;">🔗</span>References</div>
     </div>
   </div>
-</div>
+</section>
+
+<script>
+(function () {
+  var rows = [
+    [4,10],[3,11],[2,11],[2,12],[1,12],[1,13],[0,13],[0,12],
+    [1,10],[2,9],[2,10],[2,10],[3,9],[3,8],[4,8],[5,7]
+  ];
+  var spacing = 12, r = 4, offsetX = 4, offsetY = 4;
+  var svg = document.getElementById('africa-dots');
+  var ns = 'http://www.w3.org/2000/svg';
+  rows.forEach(function (range, rowIdx) {
+    for (var col = range[0]; col <= range[1]; col++) {
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', offsetX + col * spacing);
+      c.setAttribute('cy', offsetY + rowIdx * spacing);
+      c.setAttribute('r', r);
+      svg.appendChild(c);
+    }
+  });
+  [[12,11],[12,12],[12,13]].forEach(function (p) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', offsetX + p[0] * spacing);
+    c.setAttribute('cy', offsetY + p[1] * spacing);
+    c.setAttribute('r', r * 0.8);
+    c.setAttribute('class', 'madagascar-dot');
+    svg.appendChild(c);
+  });
+})();
+
+(function () {
+  var input = document.getElementById('country-search');
+  var tiles = Array.prototype.slice.call(document.querySelectorAll('#country-grid [data-name]'));
+  var noResults = document.getElementById('no-results');
+  input.addEventListener('input', function (e) {
+    var q = e.target.value.trim().toLowerCase();
+    var visibleCount = 0;
+    tiles.forEach(function (el) {
+      var match = el.getAttribute('data-name').indexOf(q) !== -1;
+      el.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+    noResults.style.display = visibleCount === 0 ? '' : 'none';
+  });
+})();
+</script>
 ```
