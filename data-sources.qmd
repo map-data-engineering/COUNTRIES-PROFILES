@@ -1,0 +1,23 @@
+---
+title: "Data Sources"
+---
+
+Each country profile draws on the sources below. Because profiles are
+submitted by individual country teams, not every profile cites every
+source — check a profile's own **References** section (section 11) for
+what was actually used there.
+
+- **DHS StatCompiler / DHS surveys** — household survey indicators such
+  as prevalence, mortality, and intervention coverage.
+- **MICS** — Multiple Indicator Cluster Surveys, used alongside DHS for
+  survey-derived indicators where available.
+- **DHIS2** — routine health information system data behind the
+  incidence and health-system indicators.
+- **Malaria Atlas Project (MAP)** — modeled surfaces and administrative
+  boundary layers used in stratification and admin-boundary maps.
+- **Natural Earth** — the boundary data behind this site's own Africa
+  map on the homepage.
+
+Questions about a specific number or map in a profile belong with that
+country's own team — see the profile's References section for citations
+and contacts.

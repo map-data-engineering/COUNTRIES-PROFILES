@@ -1,0 +1,21 @@
+---
+title: "Help"
+---
+
+## For modelers using these profiles
+
+Each profile follows the same 11-section template, so if you're looking
+for something specific, jump straight to its section: **3. Administrative
+Boundaries**, **6. Malaria Indicator Summary**, **8. Stratification Maps
+/ SNT**, and **11. References** are usually the fastest way in.
+
+## For country teams submitting a profile
+
+See the [submission guide](https://github.com/map-data-engineering/COUNTRIES-PROFILES/tree/main/submissions)
+for how to package and upload your country's profile — no git experience
+needed, just a GitHub account.
+
+## Something wrong on a page?
+
+Open an issue on the [GitHub repo](https://github.com/map-data-engineering/COUNTRIES-PROFILES/issues)
+or contact the MAP Data Engineering Team directly.

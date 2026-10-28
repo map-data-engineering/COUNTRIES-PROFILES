@@ -13,6 +13,7 @@ execute:
 website:
   title: "Malaria Country Profiles"
   site-url: "https://map-data-engineering.github.io/COUNTRIES-PROFILES/"
+  search: true
   navbar:
     background: primary
     left:
@@ -34,6 +35,12 @@ website:
             text: Mozambique
           - href: countries/angola.qmd
             text: Angola
+      - href: about.qmd
+        text: About
+      - href: data-sources.qmd
+        text: Data Sources
+      - href: help.qmd
+        text: Help
   page-footer:
     background: light
     left: "© 2026 MAP Data Engineering Team"

@@ -1,0 +1,24 @@
+---
+title: "About this platform"
+---
+
+Malaria Country Profiles is built by the MAP Data Engineering Team (DET)
+to give malaria modelers a fast, standardized starting point before they
+build a model for a given country.
+
+Every profile — regardless of which country team wrote it — follows the
+same source-backed template: 11 sections covering administrative
+boundaries, the malaria situation, history, indicator summaries, the
+health system, stratification/SNT, environment, vector profile, and
+references. That consistency is the point: you can move from one
+country's profile to another and know exactly where to find what you
+need.
+
+## How profiles are built
+
+Country teams complete a shared submission template — a filled-in
+content file plus an epi table and supporting exports — and hand it to
+DET, who format it into the page you're reading.
+
+See [Data Sources](data-sources.qmd) for what feeds the template itself,
+or [Help](help.qmd) if you're submitting a profile and have a question.
