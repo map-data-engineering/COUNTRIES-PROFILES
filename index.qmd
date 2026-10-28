@@ -4,6 +4,7 @@ page-layout: full
 title-block-banner: false
 ---
 
+:::{.column-screen}
 ```{=html}
 <section class="hero-light">
   <div class="hero-grid">
@@ -97,7 +98,7 @@ title-block-banner: false
   </div>
 </section>
 
-<div class="container">
+<div class="container-fluid px-4 px-lg-5">
   <section id="countries" class="countries-section">
     <div class="countries-heading-row">
       <div>
@@ -288,3 +289,4 @@ title-block-banner: false
 })();
 </script>
 ```
+:::

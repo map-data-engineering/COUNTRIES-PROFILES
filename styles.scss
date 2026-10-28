@@ -72,8 +72,7 @@ main.content:has(.hero-light) #title-block-header {
 }
 
 .hero-grid {
-  max-width: 72rem;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 3rem;
@@ -309,8 +308,7 @@ a.country-tile:hover {
 }
 
 .sections-strip-inner {
-  max-width: 72rem;
-  margin: 0 auto;
+  width: 100%;
   padding: 2.5rem 1.5rem;
   display: flex;
   gap: 2.5rem;
