@@ -4,7 +4,14 @@
     "href": "index.html",
     "title": "Malaria Country Profiles",
     "section": "",
-    "text": "Country Profiles for Malaria Research\n      Explore malaria information across every country we cover\n      \n        Get a quick overview of malaria in each country — from epidemiology and\n        health systems to environment, climate, and vector ecology. Every\n        profile is built from the same source-backed template.\n      \n      \n        🧭 Explore Countries\n        DHS StatCompiler ›\n      \n    \n    \n      \n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n      \n      \n        \n          🦟\n          7Countries covered\n        \n        \n          📍\n          Sub-Saharan AfricaMalaria endemic\n        \n        \n          📄\n          11Sections per profile\n        \n      \n    \n  \n\n\n\n  \n    \n      \n        Explore countries\n        Click a country to view its malaria profile.\n      \n      \n    \n\n    \n      \n        🇹🇿\n        Tanzania\n        ›\n      \n      \n        🇨🇲\n        Cameroon\n        ›\n      \n      \n        🇧🇯\n        Benin\n        ›\n      \n      \n        🇧🇫\n        Burkina Faso\n        ›\n      \n      \n        🇳🇬\n        Nigeria\n        ›\n      \n      \n        🇲🇿\n        Mozambique\n        ›\n      \n      \n        🇦🇴\n        Angola\n        ›\n      \n\n      \n        🇨🇩\n        DR Congo\n        Soon\n      \n      \n        🇬🇭\n        Ghana\n        Soon\n      \n      \n        🇰🇪\n        Kenya\n        Soon\n      \n      \n        🇺🇬\n        Uganda\n        Soon\n      \n      \n        🇿🇲\n        Zambia\n        Soon\n      \n      \n        🇲🇼\n        Malawi\n        Soon\n      \n      \n        🇲🇱\n        Mali\n        Soon\n      \n      \n        🇳🇪\n        Niger\n        Soon\n      \n      \n        🇷🇼\n        Rwanda\n        Soon\n      \n      \n        🇸🇳\n        Senegal\n        Soon\n      \n      \n        🇸🇱\n        Sierra Leone\n        Soon\n      \n      \n        🇲🇬\n        Madagascar\n        Soon\n      \n    \n\n    No countries match your search.\n  \n\n\n\n  \n    \n      What's in each country profile?\n      Every profile follows the same 11 sections, built from the DET submission template.\n    \n    \n      📝Introduction\n      📊Summary Statistics\n      🗺️Admin Boundaries\n      🦟Malaria Situation\n      📜History\n      📈Indicator Summary\n      🏥Health System\n      🧭Stratification / SNT\n      🌦️Environment\n      🧬Vector Profile\n      🔗References"
+    "text": "Country Profiles for Malaria Modelers\n      Explore malaria information across sub-Saharan Africa\n      \n        Get a quick overview of malaria in each country — from epidemiology and\n        health systems to environment, climate, and vector ecology. Designed to\n        help modelers understand the context before building a model, every\n        profile is built from the same source-backed template.\n      \n      \n        🧭 Explore Countries\n        About this platform ›\n      \n    \n    \n      \n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n      \n      \n        \n          \n            🦟\n            7Countries covered\n          \n          \n            📍\n            Sub-Saharan AfricaMalaria endemic\n          \n          \n            📄\n            11Sections per country\n          \n        \n      \n    \n  \n\n\n\n  \n    \n      \n        Explore countries\n        Click a country to view its malaria profile.\n      \n      \n    \n\n    \n      \n        \n          \n          Tanzania\n          ›\n        \n      \n      \n        \n          \n          Cameroon\n          ›\n        \n      \n      \n        \n          \n          Benin\n          ›\n        \n      \n      \n        \n          \n          Burkina Faso\n          ›\n        \n      \n      \n        \n          \n          Nigeria\n          ›\n        \n      \n      \n        \n          \n          Mozambique\n          ›\n        \n      \n      \n        \n          \n          Angola\n          ›\n        \n      \n\n      \n        \n          \n          DR Congo\n          Soon\n        \n      \n      \n        \n          \n          Ghana\n          Soon\n        \n      \n      \n        \n          \n          Kenya\n          Soon\n        \n      \n      \n        \n          \n          Uganda\n          Soon\n        \n      \n      \n        \n          \n          Zambia\n          Soon\n        \n      \n      \n        \n          \n          Malawi\n          Soon\n        \n      \n      \n        \n          \n          Mali\n          Soon\n        \n      \n      \n        \n          \n          Niger\n          Soon\n        \n      \n      \n        \n          \n          Rwanda\n          Soon\n        \n      \n      \n        \n          \n          Senegal\n          Soon\n        \n      \n      \n        \n          \n          Sierra Leone\n          Soon\n        \n      \n      \n        \n          \n          Madagascar\n          Soon\n        \n      \n    \n\n    No countries match your search.\n  \n\n\n\n  \n    \n      What's in each country profile?\n      Every profile follows the same 11 sections, built from the DET submission template.\n    \n    \n      📝Introduction\n      📊Summary Statistics\n      🗺️Admin Boundaries\n      🦟Malaria Situation\n      📜History\n      📈Indicator Summary\n      🏥Health System\n      🧭Stratification / SNT\n      🌦️Environment\n      🧬Vector Profile\n      🔗References"
+  },
+  {
+    "objectID": "data-sources.html",
+    "href": "data-sources.html",
+    "title": "Data Sources",
+    "section": "",
+    "text": "Each country profile draws on the sources below. Because profiles are submitted by individual country teams, not every profile cites every source — check a profile’s own References section (section 11) for what was actually used there.\n\nDHS StatCompiler / DHS surveys — household survey indicators such as prevalence, mortality, and intervention coverage.\nMICS — Multiple Indicator Cluster Surveys, used alongside DHS for survey-derived indicators where available.\nDHIS2 — routine health information system data behind the incidence and health-system indicators.\nMalaria Atlas Project (MAP) — modeled surfaces and administrative boundary layers used in stratification and admin-boundary maps.\nNatural Earth — the boundary data behind this site’s own Africa map on the homepage.\n\nQuestions about a specific number or map in a profile belong with that country’s own team — see the profile’s References section for citations and contacts."
   },
   {
     "objectID": "countries/nigeria.html",
@@ -110,6 +117,20 @@
     "title": "Benin Malaria Epidemiology Summary",
     "section": "Abbreviations",
     "text": "Abbreviations\n\n\n\n\n\n\n\nAbbreviation\nMeaning\n\n\n\n\nMISAU\nMinistry of Health (Ministério da Saúde)\n\n\nSIS-MA\nNational DHIS2 instance (Sistema de Informação de Saúde para Monitoria e Avaliação)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this platform",
+    "section": "",
+    "text": "Malaria Country Profiles is built by the MAP Data Engineering Team (DET) to give malaria modelers a fast, standardized starting point before they build a model for a given country.\nEvery profile — regardless of which country team wrote it — follows the same source-backed template: 11 sections covering administrative boundaries, the malaria situation, history, indicator summaries, the health system, stratification/SNT, environment, vector profile, and references. That consistency is the point: you can move from one country’s profile to another and know exactly where to find what you need."
+  },
+  {
+    "objectID": "about.html#how-profiles-are-built",
+    "href": "about.html#how-profiles-are-built",
+    "title": "About this platform",
+    "section": "How profiles are built",
+    "text": "How profiles are built\nCountry teams complete a shared submission template — a filled-in content file plus an epi table and supporting exports — and hand it to DET, who format it into the page you’re reading.\nSee Data Sources for what feeds the template itself, or Help if you’re submitting a profile and have a question."
   },
   {
     "objectID": "countries/angola.html",
@@ -222,5 +243,33 @@
     "title": "🇹🇿 Tanzania",
     "section": "",
     "text": "Profile content in progress. This page will be populated from the DET country-submission template (introduction, burden, health system, vector profile, references).\n\n\n\n← Back to all countries"
+  },
+  {
+    "objectID": "help.html",
+    "href": "help.html",
+    "title": "Help",
+    "section": "",
+    "text": "Each profile follows the same 11-section template, so if you’re looking for something specific, jump straight to its section: 3. Administrative Boundaries, 6. Malaria Indicator Summary, 8. Stratification Maps / SNT, and 11. References are usually the fastest way in."
+  },
+  {
+    "objectID": "help.html#for-modelers-using-these-profiles",
+    "href": "help.html#for-modelers-using-these-profiles",
+    "title": "Help",
+    "section": "",
+    "text": "Each profile follows the same 11-section template, so if you’re looking for something specific, jump straight to its section: 3. Administrative Boundaries, 6. Malaria Indicator Summary, 8. Stratification Maps / SNT, and 11. References are usually the fastest way in."
+  },
+  {
+    "objectID": "help.html#for-country-teams-submitting-a-profile",
+    "href": "help.html#for-country-teams-submitting-a-profile",
+    "title": "Help",
+    "section": "For country teams submitting a profile",
+    "text": "For country teams submitting a profile\nSee the submission guide for how to package and upload your country’s profile — no git experience needed, just a GitHub account."
+  },
+  {
+    "objectID": "help.html#something-wrong-on-a-page",
+    "href": "help.html#something-wrong-on-a-page",
+    "title": "Help",
+    "section": "Something wrong on a page?",
+    "text": "Something wrong on a page?\nOpen an issue on the GitHub repo or contact the MAP Data Engineering Team directly."
   }
 ]

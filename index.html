@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1e6ac7c4e21a13096eb031e16b26c4a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e051995a0e057d52360a5b0abc21b260.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -132,6 +132,18 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./data-sources.html"> 
+<span class="menu-text">Data Sources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./help.html"> 
+<span class="menu-text">Help</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -169,16 +181,17 @@ ul.task-list li input[type="checkbox"] {
 <section class="hero-light">
   <div class="hero-grid">
     <div class="hero-copy">
-      <div class="hero-eyebrow">Country Profiles for Malaria Research</div>
-      <h1 class="hero-heading">Explore malaria information across every country we cover</h1>
+      <div class="hero-eyebrow">Country Profiles for Malaria Modelers</div>
+      <h1 class="hero-heading">Explore malaria information across sub-Saharan Africa</h1>
       <p class="hero-lede">
         Get a quick overview of malaria in each country — from epidemiology and
-        health systems to environment, climate, and vector ecology. Every
+        health systems to environment, climate, and vector ecology. Designed to
+        help modelers understand the context before building a model, every
         profile is built from the same source-backed template.
       </p>
       <div class="hero-actions">
         <a href="#countries" class="btn btn-primary-pill">🧭 Explore Countries</a>
-        <a href="https://www.statcompiler.com" target="_blank" class="hero-link">DHS StatCompiler ›</a>
+        <a href="./about.html" class="hero-link">About this platform ›</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -237,18 +250,20 @@ ul.task-list li input[type="checkbox"] {
 <path class="africa-country" d="M213.23,146.46L216.00,147.44L219.51,146.41L222.58,146.42L225.27,144.42L227.95,141.81L230.91,138.94L228.33,134.19L226.34,133.18L225.57,131.43L223.36,129.31L220.68,128.99L222.17,126.51L224.48,126.40L225.13,125.07L225.08,121.67L224.48,121.58L224.55,119.41L224.03,117.91L221.78,116.19L221.26,113.04L221.78,109.82L219.76,109.52L219.46,110.50L216.84,110.72L217.89,111.99L218.26,114.62L215.87,117.01L213.69,120.16L211.45,120.61L207.78,118.06L206.13,118.96L205.68,120.23L203.43,121.06L203.28,121.96L198.94,121.96L198.34,121.06L195.19,120.91L193.62,121.66L192.42,121.28L190.17,118.73L189.43,117.54L186.28,118.14L185.08,120.16L183.96,124.05L182.46,124.88L181.12,125.35L184.09,127.06L186.48,128.82L186.52,130.24L189.45,132.51L191.27,134.40L192.37,137.01L195.63,138.74L196.33,140.12L198.98,143.73L200.94,144.26L202.10,143.52L204.12,143.81L206.55,142.89L207.59,144.75L211.43,147.65L213.23,146.46Z"></path>
 </svg>
       </div>
-      <div class="hero-stat-card">
-        <div class="hero-stat-row">
-          <span class="hero-stat-icon">🦟</span>
-          <div><strong>7</strong><span class="hero-stat-caption">Countries covered</span></div>
-        </div>
-        <div class="hero-stat-row">
-          <span class="hero-stat-icon">📍</span>
-          <div><strong>Sub-Saharan Africa</strong><span class="hero-stat-caption">Malaria endemic</span></div>
-        </div>
-        <div class="hero-stat-row">
-          <span class="hero-stat-icon">📄</span>
-          <div><strong>11</strong><span class="hero-stat-caption">Sections per profile</span></div>
+      <div class="card hero-stat-card">
+        <div class="card-body">
+          <div class="hero-stat-row">
+            <span class="hero-stat-icon">🦟</span>
+            <div><strong>7</strong><span class="hero-stat-caption">Countries covered</span></div>
+          </div>
+          <div class="hero-stat-row">
+            <span class="hero-stat-icon">📍</span>
+            <div><strong>Sub-Saharan Africa</strong><span class="hero-stat-caption">Malaria endemic</span></div>
+          </div>
+          <div class="hero-stat-row">
+            <span class="hero-stat-icon">📄</span>
+            <div><strong>11</strong><span class="hero-stat-caption">Sections per country</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -266,101 +281,139 @@ ul.task-list li input[type="checkbox"] {
     </div>
 
     <div class="country-grid-new" id="country-grid">
-      <a class="country-tile" href="./countries/tanzania.html" data-name="tanzania">
-        <span class="country-flag-sm">🇹🇿</span>
-        <span class="country-tile-name">Tanzania</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/tanzania.html" data-name="tanzania">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/tanzania.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Tanzania</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/cameroon.html" data-name="cameroon">
-        <span class="country-flag-sm">🇨🇲</span>
-        <span class="country-tile-name">Cameroon</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/cameroon.html" data-name="cameroon">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/cameroon.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Cameroon</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/benin.html" data-name="benin">
-        <span class="country-flag-sm">🇧🇯</span>
-        <span class="country-tile-name">Benin</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/benin.html" data-name="benin">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/benin.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Benin</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/burkina-faso.html" data-name="burkina faso">
-        <span class="country-flag-sm">🇧🇫</span>
-        <span class="country-tile-name">Burkina Faso</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/burkina-faso.html" data-name="burkina faso">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/burkina-faso.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Burkina Faso</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/nigeria.html" data-name="nigeria">
-        <span class="country-flag-sm">🇳🇬</span>
-        <span class="country-tile-name">Nigeria</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/nigeria.html" data-name="nigeria">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/nigeria.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Nigeria</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/mozambique.html" data-name="mozambique">
-        <span class="country-flag-sm">🇲🇿</span>
-        <span class="country-tile-name">Mozambique</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/mozambique.html" data-name="mozambique">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/mozambique.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Mozambique</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
-      <a class="country-tile" href="./countries/angola.html" data-name="angola">
-        <span class="country-flag-sm">🇦🇴</span>
-        <span class="country-tile-name">Angola</span>
-        <span class="country-tile-chevron">›</span>
+      <a class="card country-tile" href="./countries/angola.html" data-name="angola">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/angola.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Angola</span>
+          <span class="country-tile-chevron">›</span>
+        </div>
       </a>
 
-      <div class="country-tile country-tile--soon" data-name="democratic republic of the congo drc">
-        <span class="country-flag-sm">🇨🇩</span>
-        <span class="country-tile-name">DR Congo</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="democratic republic of the congo drc">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/dr-congo.png" alt="" width="28" height="19">
+          <span class="country-tile-name">DR Congo</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="ghana">
-        <span class="country-flag-sm">🇬🇭</span>
-        <span class="country-tile-name">Ghana</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="ghana">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/ghana.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Ghana</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="kenya">
-        <span class="country-flag-sm">🇰🇪</span>
-        <span class="country-tile-name">Kenya</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="kenya">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/kenya.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Kenya</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="uganda">
-        <span class="country-flag-sm">🇺🇬</span>
-        <span class="country-tile-name">Uganda</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="uganda">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/uganda.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Uganda</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="zambia">
-        <span class="country-flag-sm">🇿🇲</span>
-        <span class="country-tile-name">Zambia</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="zambia">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/zambia.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Zambia</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="malawi">
-        <span class="country-flag-sm">🇲🇼</span>
-        <span class="country-tile-name">Malawi</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="malawi">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/malawi.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Malawi</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="mali">
-        <span class="country-flag-sm">🇲🇱</span>
-        <span class="country-tile-name">Mali</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="mali">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/mali.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Mali</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="niger">
-        <span class="country-flag-sm">🇳🇪</span>
-        <span class="country-tile-name">Niger</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="niger">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/niger.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Niger</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="rwanda">
-        <span class="country-flag-sm">🇷🇼</span>
-        <span class="country-tile-name">Rwanda</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="rwanda">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/rwanda.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Rwanda</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="senegal">
-        <span class="country-flag-sm">🇸🇳</span>
-        <span class="country-tile-name">Senegal</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="senegal">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/senegal.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Senegal</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="sierra leone">
-        <span class="country-flag-sm">🇸🇱</span>
-        <span class="country-tile-name">Sierra Leone</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="sierra leone">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/sierra-leone.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Sierra Leone</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
-      <div class="country-tile country-tile--soon" data-name="madagascar">
-        <span class="country-flag-sm">🇲🇬</span>
-        <span class="country-tile-name">Madagascar</span>
-        <span class="soon-pill">Soon</span>
+      <div class="card country-tile country-tile--soon" data-name="madagascar">
+        <div class="card-body d-flex align-items-center gap-2">
+          <img class="country-flag-sm" src="images/flags/madagascar.png" alt="" width="28" height="19">
+          <span class="country-tile-name">Madagascar</span>
+          <span class="soon-pill">Soon</span>
+        </div>
       </div>
     </div>
 
