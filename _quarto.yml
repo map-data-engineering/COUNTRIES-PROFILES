@@ -4,6 +4,11 @@ project:
     - "*.qmd"
     - "countries/*.qmd"
     - "!submissions/"
+    - "!countries/*_TEST.qmd"
+
+execute:
+  freeze: auto
+  
 
 website:
   title: "Malaria Country Profiles"

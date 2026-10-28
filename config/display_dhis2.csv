@@ -1,0 +1,18 @@
+Group,Metric,Label,Unit
+Burden,Malaria incidence,Malaria incidence,per 1000 pop at risk
+Burden,Total malaria cases,Total malaria cases,count
+Testing,Patients receiving a diagnostic test,Patients tested,count
+Testing,Test positivity rate,Test positivity rate,%
+Testing,Share of malaria cases confirmed,Share of cases confirmed,%
+Who is affected,"Cases in children under five, share of all cases",Share of cases in children under five,%
+Severity,Severe cases,Severe cases,count
+Severity,Reported malaria deaths (routine),Reported malaria deaths,count
+Community,"Cases reported by CHWs, share of all cases",Share of cases reported by CHWs,%
+Data quality,Reporting completeness,Reporting completeness,%
+hidden,Suspected malaria cases,,count
+hidden,Confirmed cases,,count
+hidden,Presumed cases,,count
+hidden,Cases in children under five,,count
+hidden,Diagnostic tests performed by CHWs,,count
+hidden,Cases reported by CHWs,,count
+hidden,All-cause outpatient consultations,,count

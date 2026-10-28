@@ -1,0 +1,19 @@
+Group,Indicator,Label,Unit,ShowCI,Show
+Malaria burden,Malaria prevalence according to RDT,"Prevalence by RDT, children 6-59 months",%,yes,yes
+Malaria burden,Malaria prevalence according to microscopy,"Prevalence by microscopy, children 6-59 months",%,yes,no
+Malaria burden,Under-five mortality rate,Under-five mortality rate,"per 1,000 live births",yes,yes
+Malaria burden,Pregnancy-related mortality ratio,Pregnancy-related mortality ratio,"per 100,000 live births",yes,no
+Insecticide-treated nets (ITNs),Households with at least one insecticide-treated mosquito net (ITN),Households with at least one ITN,%,no,yes
+Insecticide-treated nets (ITNs),Households with at least one insecticide-treated mosquito net (ITN) for every two persons who stayed in the household the previous night,Households with one ITN for every two people,%,no,no
+Insecticide-treated nets (ITNs),Persons with access to an insecticide-treated mosquito net (ITN),Population with access to an ITN,%,no,yes
+Insecticide-treated nets (ITNs),Population who slept under an insecticide-treated mosquito net (ITN) last night,Population who slept under an ITN,%,no,yes
+Insecticide-treated nets (ITNs),Children under 5 who slept under an insecticide-treated net (ITN),Children under 5 who slept under an ITN,%,no,yes
+Insecticide-treated nets (ITNs),Pregnant women who slept under an insecticide-treated net (ITN),Pregnant women who slept under an ITN,%,no,no
+Insecticide-treated nets (ITNs),Existing insecticide-treated mosquito nets (ITNs) used last night,Existing ITNs used last night,%,no,no
+Vector control coverage,Households with at least one insecticide-treated mosquito net (ITN) and/or indoor residual spraying (IRS) in the past 12 months,Households with an ITN and/or IRS (past 12 months),%,no,no
+Vector control coverage,Households with at least one insecticide-treated mosquito net (ITN) for every two persons and/or indoor residual spraying (IRS) in the past 12 months,Households with one ITN per two people and/or IRS,%,no,no
+Malaria in pregnancy,SP/Fansidar 3+ doses during pregnancy,Women with 3+ doses of SP/Fansidar in pregnancy,%,no,yes
+"Case management, children with fever",Children with fever for whom advice or treatment was sought,Advice or treatment sought,%,no,yes
+"Case management, children with fever",Children with fever who had blood taken from a finger or heel for testing,Blood taken for testing,%,no,yes
+"Case management, children with fever",Children with fever who took a combination with artemisinin,Took an artemisinin-based combination,%,no,yes
+Anaemia,Children with hemoglobin lower than 8.0 g/dl,Children 6-59 months with severe anaemia (hemoglobin below 8.0 g/dl),%,no,no

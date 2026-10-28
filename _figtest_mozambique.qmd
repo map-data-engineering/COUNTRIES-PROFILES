@@ -1,0 +1,76 @@
+---
+title: "Figure test: Mozambique"
+format: html
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| include: false
+source("R/fig_admin_map.R")
+source("R/fig_timeline.R")
+source("R/fig_health_system.R")
+source("R/fig_data_flow.R")
+slug       <- "mozambique"
+admin_text <- fig_admin_map_text(slug)
+tl_text    <- fig_timeline_text(slug)
+tl_height  <- fig_timeline_height(slug)
+hs_text    <- fig_health_system_text(slug)
+hs_height  <- fig_health_system_height(slug)
+df_text    <- fig_data_flow_text(slug)
+df_height  <- fig_data_flow_height(slug)
+```
+
+## Administrative boundaries
+
+```{r}
+#| label: fig-admin
+#| fig-cap: !expr admin_text$caption
+#| fig-width: 9
+#| fig-height: 6.5
+fig_admin_map(slug)
+```
+
+**Source:** `r admin_text$source`
+
+## History of malaria
+
+```{r}
+#| label: fig-timeline
+#| fig-cap: !expr tl_text$caption
+#| fig-width: 12
+#| fig-height: !expr tl_height
+fig_timeline(slug)
+```
+
+**Source:** `r tl_text$source`
+
+```{r}
+#| results: asis
+cat("<details><summary>Timeline sources</summary>\n\n")
+print(knitr::kable(timeline_sources(slug)))
+cat("\n\n</details>\n")
+```
+
+## Health system
+
+```{r}
+#| label: fig-health-system
+#| fig-cap: !expr hs_text$caption
+#| fig-width: 12.4
+#| fig-height: !expr hs_height
+fig_health_system(slug)
+```
+
+**Source:** `r hs_text$source`
+
+```{r}
+#| label: fig-data-flow
+#| fig-cap: !expr df_text$caption
+#| fig-width: 12.4
+#| fig-height: !expr df_height
+fig_data_flow(slug)
+```
+
+**Source:** `r df_text$source`
