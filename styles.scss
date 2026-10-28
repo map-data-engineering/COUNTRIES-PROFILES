@@ -138,10 +138,9 @@ main.content:has(.hero-light) #title-block-header {
 }
 
 .africa-badge {
-  width: 13rem;
-  height: 15rem;
+  width: 15rem;
+  height: 15.7rem;
   flex-shrink: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(20, 184, 166, 0.1), transparent 70%);
 }
 
 .africa-badge svg {
@@ -149,12 +148,18 @@ main.content:has(.hero-light) #title-block-header {
   height: 100%;
 }
 
-.africa-badge circle {
-  fill: $accent;
+.africa-country {
+  fill: #dbe4f0;
+  stroke: #ffffff;
+  stroke-width: 0.5;
 }
 
-.africa-badge circle.madagascar-dot {
-  fill: lighten($accent, 18%);
+.africa-country--soon {
+  fill: lighten($accent, 25%);
+}
+
+.africa-country--live {
+  fill: $accent;
 }
 
 .hero-stat-card {
