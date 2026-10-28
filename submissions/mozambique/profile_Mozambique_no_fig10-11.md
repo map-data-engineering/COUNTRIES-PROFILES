@@ -27,13 +27,13 @@
 ## 1. Introduction
 
 Mozambique sits in southeastern Africa within the WHO African Region, 
-among the four highest-burden malaria countries globally with a population of roughly 34.6 million people as of 2024. 
+among the five highest-burden malaria countries globally, with roughly 34.6 million people at risk (WHO, 2024). 
 What sets Mozambique apart is that malaria control here is not a targeted, 
-geographically bounded effort the entire population is classified as at high risk, 
+geographically bounded effort: the entire population is classified as at high risk, 
 with no low-risk or malaria-free zones anywhere in the country. This universal exposure, 
 combined with perennial transmission and a north-east to south-west burden gradient, 
 makes malaria control central to the country's health system,
-accounting for over a quarter of outpatient visits and more than a third of hospital admissions.
+with malaria cases equivalent to about a quarter of all outpatient consultations in 2022 (SIS-MA, via PMI, 2024).
 
 ---
 
@@ -59,7 +59,7 @@ Mozambique lies between latitudes 10°S to 27°S and longitudes 30°E to 41°E, 
 It is divided into eleven provinces, 154 statutory districts, 457 postos administrativos and 1,712 localidades, alongside a separate elected structure of 65 municipalities (OCHA, 2025). 
 OCHA's Common Operational Dataset renders 161 admin-2 units because it treats Maputo City's seven distritos municipais as districts; 
 use 161 for any geospatial work, since the DHIS2 organisation units, the facility registry and the SNT layers are all built on it. 
-Health districts and administrative districts are identical, which is what makes district-level stratification operationally tractable.
+Health districts follow the administrative districts, which is what makes district-level stratification operationally tractable. The maps on this page use the Malaria Atlas Project boundary set, which also has 161 district-level units.
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/Mozambique_StudyArea_Map.png>)
 **Figure 1:**Administrative geography of Mozambique: 11 provinces and 161 district-level units  
@@ -69,36 +69,36 @@ Health districts and administrative districts are identical, which is what makes
 
 ## 4. Malaria Situation
 
-Mozambique contributes to more than 3.6% of globally observed malaria cases annually, 
+Mozambique contributes to more than 3.6% of estimated global malaria cases annually, 
 one of five countries (alongside Nigeria, DRC, Ethiopia, and Uganda) that together account for over half of all global cases, 
-and one of 11 high-burden African countries that account for roughly two-thirds of global cases and deaths (WMR, 2025). 
-In Mozambique, close to half of pediatric admissions are due to malaria and a third of hospital deaths are attributed to malaria. 
-Mozambique's national programme reported about 11.5 million cases and 358 in-hospital deaths in 2024 
-(WHO's modelled estimate for the same year is 10.2 million cases and 17,946 deaths) (WMR, 2025). 
-Efforts to reduce transmission have resulted in some improvements cases fell 12% and deaths 1% between 2023 and 2024 
+and one of 11 high-burden African countries that account for roughly two-thirds of global cases and deaths (WHO, 2025). 
+WHO estimates about 10.2 million malaria cases and 17,946 deaths in Mozambique in 2024 (WHO, 2025). 
+The national programme's routine reports for the same year are higher for cases, about 11.5 million, 
+and far lower for deaths, 358 in-hospital deaths, because routine data count only the cases and deaths seen at health facilities (WHO, 2025). 
+Efforts to reduce transmission have resulted in some improvements: cases fell 12% and deaths 1% between 2023 and 2024, 
 but cyclones and extremist-group activity remain the greatest threats to this progress, as the resulting displacement, 
-deaths, and breaks in service provision often leave societies vulnerable (WMR, 2024 & WMR, 2025).
+deaths, and breaks in service provision often leave societies vulnerable (WHO, 2024; WHO, 2025).
 
 ---
 
 ## 5. History of Malaria
 
 Mozambique's modern programme dates to the re-establishment of the NMCP in 1982, 
-but the decisive shift came in the mid-2000s, when failing mono therapies gave way to 
+but the decisive shift came in the mid-2000s, when failing monotherapies gave way to 
 artemisinin-based combination therapy and intermittent preventive treatment in 
 pregnancy began nationally (MISAU, 2006). 
-Over the following decade the programme built out universal coverage vector control and 
-parasitological diagnosis mass insecticide treated net campaigns, indoor residual spraying in selected high-burden districts and 
+Over the following decade the programme built out universal coverage: vector control and 
+parasitological diagnosis, mass insecticide-treated net campaigns, indoor residual spraying in selected high-burden districts and 
 rapid diagnostic tests extended to community level under successive strategic plans in 
 2012, 2017 and 2023, with nationwide DHIS2 reporting from 2015 giving district-level 
 routine data for the first time; since 2020 the emphasis has moved from 
 uniform national coverage to subnational tailoring, with intervention packages 
-assigned by stratum (MISAU, 2023; Swiss Tropical and Public Health Institute, 2020). 
+assigned by stratum (MISAU, 2023). 
 The current mix combines pyrethroid chlorfenapyr nets deployed against widespread pyrethroid resistance, 
-targeted IRS, IPTp, seasonal malaria chemoprevention in Nampula, universal testing with RDTs followed by artemether-lumefantrine and 
+targeted IRS, IPTp, seasonal malaria chemoprevention in Nampula (introduced in 2022; the 2024–25 campaign was cancelled in January 2025 amid post-election unrest), universal testing with RDTs followed by artemether-lumefantrine and 
 the R21 vaccine introduced in Zambézia in 2024 though cyclones, COVID-19 and post election unrest have repeatedly interrupted delivery 
 and the 2023-2030 plan remains costed well beyond secured financing (Gavi, the Vaccine Alliance, 2024; 
-Malaria Consortium, 2025; MISAU, 2023; OCHA, 2026).
+Malaria Consortium, 2025; GiveWell, 2025; MISAU, 2023; OCHA, 2026).
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/figure_04_timeline.png>)
 **Figure 2:** Timeline of malaria policy changes and intervention milestones, Mozambique, 1982-2026.
@@ -135,8 +135,8 @@ Malaria Consortium, 2025; MISAU, 2023; OCHA, 2026).
 
 Nationally representative household surveys provide the population-based measures that routine facility data cannot: 
 parasite prevalence in children, net ownership and use, chemoprevention in pregnancy, and care-seeking for childhood fever. 
-The table below draws on four rounds the 2011 DHS, 2015 AIS, 2018 MIS and 2022-23 DHS allowing each indicator to be read as a trajectory rather than a single point, 
-with gaps shown as NA where an indicator was not measured in that round.
+The table below draws on successive survey rounds (DHS, AIS and MIS), allowing each indicator to be read as a trajectory rather than a single point, 
+with gaps shown as a dash where an indicator was not measured in that round.
 
 **Table 3:**  Malaria survey indicators.
 
@@ -202,39 +202,39 @@ with gaps shown as NA where an indicator was not measured in that round.
 
 ## 7. Health System
 
-Public health services cater to approximately 60% of the population, with private facilities serving about 10%.
+Public health services reach an estimated 60% of the population, while the private sector is largely limited to major cities (PMI, 2024).
 There has been progressive investment in health infrastructure, particularly rural healthcare.
 The health sector is coordinated nationally by the Ministry of Health (MISAU), 
 with implementation devolved to Provincial Health Directorates (DPS) and 
-District Health Services (SDSMAS). There is efforts to decentralize resources and 
+District Health Services (SDSMAS). There are efforts to decentralise resources and 
 decision-making authority from central to provincial level.
 The healthcare system is hierarchically structured into four levels:
-Level I & II: Primary care, peripheral facilities (health posts and rural clinics)
-Level III & IV: Secondary and tertiary care with specialized services.
+
+- Levels I and II: primary care, peripheral facilities (health posts and rural clinics).
+- Levels III and IV: secondary and tertiary care with specialised services.
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/MozambiqueHS-diagram.png>)
 **Figure 3** Organisation of Health Administration and Service deliver. 
 
 **Source:** (Herieth-version-1, 2024)
 
-### Community Health Workers (CHWs):###
+### Community Health Workers (CHWs)
 
 CHWs, locally known as Agentes Polivalentes Elementares (APEs) play a critical role in healthcare delivery, 
-especially in remote areas.There are 17,648 deployed out of 18,000 planned and 5595 of these are 
+especially in remote areas. There are 17,648 deployed out of 18,000 planned and 5,595 of these are 
 involved in diagnosing and treating uncomplicated malaria as well as promoting preventive measures, 
-and referring severe cases. APEs are keystone for malaria control in rural and remote areas.
+and referring severe cases (End Malaria Global Community Health Dashboard). APEs are keystone for malaria control in rural and remote areas.
 
 Mozambique transitioned from paper based reporting that was aggregated at district, provincial and national level to a DHIS2 based system in 2015. 
 While the initial approach was reliable and consistent, the quality of data did not meet malaria control management needs. 
 Currently a full information M&E system based on the DHIS2 platform collects malaria data. 
-This includes outpatient attendance, testing, and confirmed cases, with dis aggregation by age and gender. 
-Facilities with electronic systems fill data directly to the system and paper based records are entered into the system by District health teams .
+This includes outpatient attendance, testing, and confirmed cases, with disaggregation by age and gender. 
+Facilities with electronic systems fill data directly to the system and paper based records are entered into the system by district health teams.
 Efforts are underway to strengthen real-time data availability for decision-making.
 
-Surveys like IMASIDA (Immunization, Malaria, HIV Indicators Survey) provide periodic data on 
-treatment-seeking behavior, bed-net use, and coverage of interventions. Indicators tracked include Outpatient visits for suspected malaria , 
-Laboratory-confirmed cases by rapid diagnostic tests (RDTs) with Age-disaggregated data on 
-positive cases as well as bed-net coverage and use.
+Routine indicators in DHIS2 include outpatient visits for suspected malaria and laboratory-confirmed cases by rapid diagnostic test (RDT), 
+with age-disaggregated data on positive cases. Periodic household surveys such as IMASIDA (the 2015 Immunization, Malaria and HIV Indicators Survey) 
+add population-based data on treatment-seeking behaviour, bed-net coverage and use, and coverage of interventions.
 
 ### Geographic location of health facilities
 
@@ -244,13 +244,13 @@ positive cases as well as bed-net coverage and use.
 
 ## 8. Stratification Maps / SNT
 
-Mozambique incorporated maps to inform decision making and planning . 
+Mozambique uses maps to inform decision making and planning. 
 A structured approach to optimizing malaria interventions in Mozambique involves using complementary analytical methods. 
 It begins with spatial analysis of malaria burden to prioritize high-impact areas. 
 Empirical data analysis and mathematical models help refine intervention targeting by evaluating past interventions and predicting optimal strategies. 
 Cost-effectiveness analysis ensures interventions maximize case reductions within a fixed budget over five years. 
 Finally, operational feasibility adjustments account for logistical and geographic constraints, ensuring interventions are practical and effectively implemented. 
-This multi-faceted approach enhances the impact and efficiency of malaria control efforts.In addition to prevalence and incidence maps , 
+This multi-faceted approach enhances the impact and efficiency of malaria control efforts. In addition to prevalence and incidence maps, 
 risk maps and vulnerability to epidemics are mapped at district level. This aids with tailoring of interventions.
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/incidencemza.jpg>)
@@ -259,38 +259,38 @@ risk maps and vulnerability to epidemics are mapped at district level. This aids
 **Source:** National Malaria Strategic Plan (NMSP) of Mozambique: 2023 – 2030 https://mesamalaria.org/resource-hub/national-malaria-strategic-plan-nmsp-of-mozambique-2023-2030/
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/malaria deaths.jpg>)
-**Figure 8:** Malaria deaths trend at district level 
+**Figure 8:** Malaria deaths trend at district level (legend: deaths per 100,000 population; "Óbitos por malária por 100 000 habitantes") 
 
 **Source:** National Malaria Strategic Plan (NMSP) of Mozambique: 2023 – 2030 https://mesamalaria.org/resource-hub/national-malaria-strategic-plan-nmsp-of-mozambique-2023-2030/
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/interventionsmza.jpg>)
-**Figure 9:** Tailored Intervention Packages based on burden
+**Figure 9:** Tailored Intervention Packages based on burden. Legend translation: Pacote Principal = core package; Pacote Principal Adicional = core package plus; Pacote Ideal = ideal package; RTIs Nova Geração = new-generation insecticide-treated nets; PMC = perennial malaria chemoprevention; SMC = seasonal malaria chemoprevention; PIDOM = indoor residual spraying (focalizada = targeted); Vigilância baseada no caso = case-based surveillance; Vacina = vaccine
 
 **Source:** National Malaria Strategic Plan (NMSP) of Mozambique: 2023 – 2030 https://mesamalaria.org/resource-hub/national-malaria-strategic-plan-nmsp-of-mozambique-2023-2030/
 
 Parasite prevalence by RDT in children aged 6–59 months follows a steep north–south gradient, 
 exceeding 33% across the northern and central provinces and peaking at 54.7% in Nampula, 
-falling to 10–20% in Tete, Inhambane and Manica, and approaching zero in the far south 5.7% 
-in Gaza, 0.3% in Maputo Province and 0.0% in Cidade de Maputo (IDS 2022–23).
+falling to 10–20% in Tete, Inhambane and Manica, and approaching zero in the far south (5.7% 
+in Gaza, 0.3% in Maputo Province and 0.0% in Cidade de Maputo; 2022–23 DHS, IDS).
   
 ---
 
 ## 9. Environment and Seasonality
 
-Transmission is sustained year-round by warm temperatures mean monthly temperature stays above 18 ℃ 
+Transmission is sustained year-round by warm temperatures: mean monthly temperature stays above 18 ℃ 
 in every province except the Manica highlands, so the thermal threshold for sporogonic development of 
-Plasmodium falciparum is rarely a constraint combined with low-lying coastal and riverine terrain and 
-abundant surface water that provide continuous Anopheles breeding habitat 
+Plasmodium falciparum is rarely a constraint, while low-lying coastal and riverine terrain and 
+abundant surface water provide continuous Anopheles breeding habitat 
 (MISAU, 2023; NASA Langley Research Center, 2025). Intensity follows a north-south ecological gradient, 
 from the wet, densely populated northern provinces to the drier south, 
 with mean annual rainfall falling from 1,403 mm in Nampula to 605 mm in Gaza and mean annual temperature 
 ranging from 25.4 ℃ in Zambezia down to 21.2 ℃ on the Manica plateau, 
 the one area cool enough in June-August (16.3 ℃ in July) to slow the parasite's development materially 
 (NASA Langley Research Center, 2025). Because temperature is permissive almost everywhere, 
-rainfall sets the timing: a single wet season from December to April concentrates precipitation 362 mm in 
-January in the north against 128 mm in the south and with cases lagging rainfall by roughly six to ten weeks, 
-the malaria peak falls in January-March, earlier and sharper in the north and centre than in the south, 
-where transmission is lower and more seasonal (Harp et al., 2021; MISAU, 2023).
+rainfall sets the timing: a single wet season from December to April concentrates precipitation (362 mm in 
+January in the north against 128 mm in the south) and, with cases lagging rainfall by roughly six to ten weeks (Harp et al., 2021), 
+transmission peaks from December to April (PMI, 2024), earlier and sharper in the north and centre than in the south, 
+where transmission is lower and more seasonal (MISAU, 2023).
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/11_rainfall_climatology.png>)
 **Figure 10:** Mean Monthly Rainfall (mm), 1991-2020
@@ -310,81 +310,38 @@ Malaria transmission in Mozambique is sustained by three primary vectors Anophel
 An. arabiensis and An. gambiae sensu stricto with the saltwater breeding An. merus contributing along the southern and central coast; 
 species-distribution models place An. funestus and An. arabiensis across virtually the whole country, 
 while An. gambiae s.s. is concentrated in the wetter north and centre and An. merus is restricted to the 
-coastal strip (Sinka et al., 2010; Wiebe et al., 2017). Recent entomological work documents multiple insecticide resistance in An.funestus: 
-mosquitoes collected in Mopeia, Zambézia, in 2021–22 showed 14% mortality to deltamethrin, 37% to bendiocarb and 67% to pirimiphos-methyl, 
-and pre-exposure to piperonyl butoxide raised deltamethrin mortality from 8% to 80%, implicating cytochrome P450 monooxygenases (Kiuru et al., 2025). 
-That P450-mediated pyrethroid resistance is the operational rationale for the shift to dual-active-ingredient and PBO nets and for rotating IRS products away from pyrethroids.
+coastal strip (Sinka et al., 2010; Wiebe et al., 2017). Recent entomological work documents multiple insecticide resistance in An. funestus (Kiuru et al., 2025); 
+the monitoring record is summarised in Table 5 and described below. 
+P450-mediated pyrethroid resistance, shown by the restoration of deltamethrin mortality with piperonyl butoxide (PBO), is the operational rationale for the shift to dual-active-ingredient and PBO nets and for rotating IRS products away from pyrethroids.
 
 ![**Figure:**](<C:/Users/HP/Desktop/Map's_Project/Country_Profile/country-submission-template/Images/15_vector_distribution.png>)
 **Figure 13:** Distribution of the major malaria vectors by district, Mozambique
 **Source:**.malariaAtlas :https://data.malariaatlas.org/
 
-**Vector and parasite species**
+### Vector and parasite species
 
 Malaria in Mozambique is primarily caused by Plasmodium falciparum, the most virulent malaria parasite. 
-The disease is transmitted by various Anopheles mosquito species, 
-with Anopheles gambiae being dominant in the northern and central regions, 
-while An. funestus is widespread along the coast. In the south and central areas, An. arabiensis is a key vector. 
-An emerging concern is An. stephensi, which poses a growing threat, particularly in urban environments.
+The vector species are described above, and Table 4 summarises the parasite and vector facts.
 
 **Table 4:**  Vectors and Parasite species summary.
 
-|Metric|Mozambique|
-|:--|:--|
-| Mosquito species | *Anopheles gambiae* s.s., *An. arabiensis*, and *An. funestus* s.s. |
-| Parasite | *Plasmodium falciparum* |
-| Peak transmission season | October through March |
-| Drivers | Rainfall, altitude, cyclones |
-| Extreme weather events | Cyclones, Flood |
-| Weather type | Tropical to subtropical |
+<!-- DET-TABLE: vector-summary -->
 
 Insecticide resistance in Mozambique has followed a clear trajectory over twenty-five years of monitoring. 
 In collections from 2000–02, Anopheles funestus s.s. was already pyrethroid-resistant in the far south but 
 fully susceptible to DDT and to the organophosphate malathion everywhere tested (Casimiro et al., 2006). 
 By 2006–10 the same pyrethroid resistance had reached central Mozambique, appearing in An. funestus in Mocuba, Zambézia, 
 while DDT and deltamethrin still killed 100% of mosquitoes (Abílio et al., 2011). In collections from 2021–22 in Mopeia, 
-also Zambézia, An. funestus s.l. was resistant to all four classes tested 14% mortality to deltamethrin, 
+also Zambézia, An. funestus s.l. was resistant to all four classes tested: 14% mortality to deltamethrin, 
 37% to bendiocarb, 67% to pirimiphos-methyl and 79% to DDT with piperonyl butoxide restoring deltamethrin 
-mortality from 8% to 80% (Kiuru et al., 2025). Two features of that last result matter operationally: the organophosphate reading, 
+mortality from 8% (deltamethrin alone in the synergist assay, a separate batch of wild-caught females) to 80% (Kiuru et al., 2025). Two features of that last result matter operationally: the organophosphate reading, 
 because pirimiphos-methyl is a mainstay IRS product, and the PBO restoration, 
-because it identifies cytochrome P450 monooxygenases as the mechanism and is the direct evidence base for PBO and dual-active-ingredient nets
+because it identifies cytochrome P450 monooxygenases as the mechanism and is the direct evidence base for PBO and dual-active-ingredient nets.
 
 
-### Table 9a.Insecticide susceptibility of malaria vectors, Mozambique, 2000–2022
+**Table 5:**  Insecticide susceptibility of malaria vectors, Mozambique, 2000–2022.
 
-**Table 5:**  Insecticides susceptibility.
-
-| Year of collection | Species | Insecticide (class) | Result | Sites | Source |
-|:---|:---|:---|:---|:---|:-----|
-| 2000–02 | *An. funestus* s.s. | Lambda-cyhalothrin (pyrethroid) | Resistant at 7 southern sites; susceptible elsewhere | 19 districts nationally | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Deltamethrin, permethrin (pyrethroid) | Resistant populations in the south | Southern region | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | DDT (organochlorine) | Fully susceptible at all localities | 19 districts nationally | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Malathion (organophosphate) | Fully susceptible at all sites | 19 districts nationally | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Bendiocarb (carbamate) | Low-level resistance at 5 localities | National | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Propoxur (carbamate) | Low-level resistance at 4 localities | National | Casimiro et al. (2006) |
-| 2006–10 | *An. funestus* s.s. | Lambda-cyhalothrin (pyrethroid) | 82.9–84.5% resistant | Zambézia (Mocuba and 5 other districts) | Abílio et al. (2011) |
-| 2006–10 | *An. funestus* s.s. | Bendiocarb (carbamate) | 84.5% resistant | Zambézia | Abílio et al. (2011) |
-| 2006–10 | *An. funestus* s.s. | Permethrin (pyrethroid) | 99.4% susceptible | Zambézia | Abílio et al. (2011) |
-| 2006–10 | *An. funestus*, *An. gambiae* s.s., *An. arabiensis* | Deltamethrin (pyrethroid) | 100% susceptible | Zambézia | Abílio et al. (2011) |
-| 2006–10 | *An. funestus*, *An. gambiae* s.s., *An. arabiensis* | DDT (organochlorine) | 100% susceptible | Zambézia | Abílio et al. (2011) |
-| 2021–22 | *An. funestus* s.l. | Deltamethrin (pyrethroid) | 14% resistant | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | Bendiocarb (carbamate) | 37% resistant | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | Pirimiphos-methyl (organophosphate) | 67% resistant | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | DDT (organochlorine) | 79% resistant | Mopeia, Zambézia | Kiuru et al. (2025) |
-
-
-### Table 9b. Resistance mechanisms
-
-| Year | Species | Finding | Sites | Source |
-|:---|:---|:---|:---|:-----|
-| 2000–02 | *An. funestus* s.s. | Elevated cytochrome P450 monooxygenase, 2.5–3× | Bela-Vista, Boane, Catembe, Catuane, Maputo, Moamba, Mozal | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | PBO pre-exposure raised lambda-cyhalothrin mortality 55% → 97% | Beluluane | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Altered acetylcholinesterase at low frequency | Nationwide | Casimiro et al. (2006) |
-| 2000–02 | *An. funestus* s.s. | Elevated general esterase | Bela-Vista, Boane, Quelimane | Casimiro et al. (2006) |
-| 2021–22 | *An. funestus* s.l. | PBO pre-exposure raised deltamethrin mortality 8% → 80% (P450-mediated) | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | *Rdl* allele frequency 0.49 | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | 6.5 kb structural variant, allele frequency 0.92 | Mopeia, Zambézia | Kiuru et al. (2025) |
-| 2021–22 | *An. funestus* s.l. | L119F-*GSTe2*, allele frequency 0.05 | Mopeia, Zambézia | Kiuru et al. (2025) |
+<!-- DET-TABLE: insecticide-susceptibility -->
 
 ---
 
@@ -396,23 +353,25 @@ because it identifies cytochrome P450 monooxygenases as the mechanism and is the
 | National Strategic Plan 2023 | https://drive.google.com/file/d/1pwltiFoG4WESYsBspG4SR4nTJyyrmaE_/view | Targets, stratification method, costed intervention packages, funding gap | Policy/Strategic Plan |
 | DHS STATcompiler | https://www.statcompiler.com/ | Survey indicators: prevalence, ITN use, IPTp, care-seeking, by province and survey | Epidemiology |
 | RHIS | https://drive.google.com/file/d/1_qfr-xuowp4cPTpSH28I695BYzwLDtKe/view | Structure and indicator definitions of the routine reporting system | Health System |
-| Epidemiology and control profile of malaria in Mozambique | https://web-archive.lshtm.ac.uk/www.linkmalaria.org/sites/link/files/content/country/profiles/Mozambique-profile-web.pdf | Earlier country profile; historical baseline for burden, vectors and control | Epidemiology |
-| Interannual Climate Variability and Malaria in Mozambique | https://agupubs.onlinelibrary.wiley.com/doi/pdfdirect/10.1029/2020GH000322 | Rainfall–case lag and interannual climate effects on transmission | Epidemiology |
+| PNCM, INFORM and LSHTM. Epidemiology and control profile of malaria in Mozambique (2015, version 2 2017) | https://web-archive.lshtm.ac.uk/www.linkmalaria.org/sites/link/files/content/country/profiles/Mozambique-profile-web.pdf | Earlier country profile; historical baseline for burden, vectors and control | Epidemiology |
+| Harp RD et al. Interannual Climate Variability and Malaria in Mozambique (2021) | https://agupubs.onlinelibrary.wiley.com/doi/pdfdirect/10.1029/2020GH000322 | Rainfall–case lag and interannual climate effects on transmission | Epidemiology |
 | End Malaria Global Community Health Dashboard | https://dashboards.endmalaria.org/en/global-community-health | CHW coverage and community case management indicators | Health System |
 | WHO World Malaria Report 2025 annexes | https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025 | Burden 2000–2024, routine surveillance, commodities, financing, policy adoption | Epidemiology |
+| World Bank, World Development Indicators | https://data.worldbank.org/country/mozambique | Urban population and employment in agriculture | Epidemiology |
 | PMI Mozambique Malaria Profile FY 2024 | https://mesamalaria.org/wp-content/uploads/2025/04/MOZAMBIQUE-Malaria-Profile-PMI-FY-2024.pdf | DHIS2/SIS-MA indicator table for 2022, explicitly attributed; SNT stratification and district incidence maps | Epidemiology |
 | SIS-MA national DHIS2 instance | https://sisma.misau.gov.mz/ | Source of all routine malaria indicators | Health System |
 | Strategic plan for malaria control in Mozambique 2006–2009 | https://afro.who.int/sites/default/files/2017-06/Strategic%20plan%20for%20malaria%20control%20in%20Mozambique.pdf | Dates treatment policy changes: AQ+SP 2002, artesunate+SP late 2004, IPTp 2006 | Policy/Strategic Plan |
 | R21/Matrix-M malaria vaccine introduction, August 2024 | https://www.gavi.org/news/media-room/mozambique-introduces-malaria-vaccines-routine-immunization | Dates and geography of vaccine roll out (Zambézia, 22 districts) | Intervention |
 | Malaria Consortium SMC in Mozambique | https://www.malariaconsortium.org/country/mozambique | SMC pilot, scale-up and the 2024–25 Nampula cancellation | Intervention |
-| Multiple insecticide resistance in Anopheles funestus, Mopeia | https://doi.org/10.1186/s12936-025-05321-w | Phenotypic and molecular resistance, 2021–22; rationale for dual AI nets | Resistance |
+| GiveWell: Malaria Consortium renewal grant for SMC in Nampula Province (2025) | https://www.givewell.org/node/4238 | Records the January 2025 cancellation of the 2024–25 Nampula SMC campaign | Intervention |
+| Kiuru et al. Multiple insecticide resistance in Anopheles funestus, Mopeia (2025) | https://doi.org/10.1186/s12936-025-05321-w | Phenotypic and molecular resistance, 2021–22; rationale for dual AI nets | Resistance |
 | Casimiro S et al. Insecticide resistance in Anopheles funestus from Mozambique (2006) | https://doi.org/10.1093/jmedent/43.2.267 | National baseline, 19 districts 2000–02; the start of the resistance trajectory | Resistance |
 | Abílio AP et al. Emergence of insecticide resistance in central Mozambique (2011) | https://doi.org/10.1186/1475-2875-10-110 | Zambézia 2006–10; the middle point showing resistance spreading north from the south | Resistance |
 | Wiebe A et al. Geographical distributions of African malaria vector sibling species (2017) | https://doi.org/10.1186/s12936-017-1734-y | Source of the An. funestus, An. gambiae s.s. and An. merus distribution surfaces; CC BY 4.0 attribution is a licence condition | Vector Bionomics |
 | Sinka ME et al. The dominant Anopheles vectors of human malaria in Africa (2010) | https://doi.org/10.1186/1756-3305-3-117 | Source of the An. arabiensis distribution surface; bionomic précis per species | Vector Bionomics |
-| Malaria Atlas Project | https://data.malariaatlas.org/ | Portal the vector rasters and occurrence points were downloaded from | Vector Bionomics |
-| OCHA- Administrative boundaries (COD-AB) Mozambique v02 | https://data.humdata.org/dataset/cod-ab-moz | Province, district and posto boundaries used for every map; P-codes for joining | Health System |
-| OCHA- Mozambique health facilities / Master Health Facility List | https://data.humdata.org/dataset/mozambique-health-facilities | 1,295 geolocated facilities; source of the facility map (2017 vintage, CC0) | Health System |
+| Malaria Atlas Project | https://data.malariaatlas.org/ | Portal from which the vector rasters and occurrence points were downloaded | Vector Bionomics |
+| OCHA- Administrative boundaries (COD-AB) Mozambique v02 | https://data.humdata.org/dataset/cod-ab-moz | Province, district and posto boundaries; P-codes for joining | Health System |
+| OCHA- Mozambique health facilities / Master Health Facility List | https://data.humdata.org/dataset/mozambique-health-facilities | Geolocated health facilities; source of the facility map (2017 vintage, CC0) | Health System |
 | NASA POWER climatology (PRECTOTCORR, T2M), 1991–2020 | https://power.larc.nasa.gov/ | Rainfall and temperature by zone and province, MERRA-2 reanalysis; basis of the seasonality figure | Epidemiology |
 
 ---

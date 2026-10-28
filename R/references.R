@@ -61,7 +61,7 @@ render_references <- function(slug, used = character(0)) {
   }
 
   src <- character()
-  if ("boundaries" %in% used) src <- c(src, paste0("Administrative boundaries: ", boundary_source(slug)))
+  if ("boundaries" %in% used) src <- c(src, boundary_source(slug))
   if ("facilities" %in% used) {
     source(file.path("R", "facilities.R"))
     src <- c(src, paste0("Health facilities: ", sub("\\. Province from.*$", "", facility_source(slug)), "."))

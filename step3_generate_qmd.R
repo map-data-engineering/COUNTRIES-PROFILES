@@ -65,7 +65,7 @@ need <- c("Types", "Country", "Metric", "Year", "Value", "Unit", "Source", "Link
 miss <- setdiff(need, names(epi_check))
 if (length(miss) > 0) {
   stop("The epi table is missing column(s): ", paste(miss, collapse = ", "),
-       ". Please use epi_table_TEMPLATE_v2.xlsx.")
+       ". Copy the missing column(s) into the Data tab from epi_table_TEMPLATE.xlsx (researcher_pack), keeping the header names exactly.")
 }
 mine <- epi_check[!is.na(epi_check$Country) & epi_check$Country == country_name, ]
 cat("Epi table rows for", country_name, "by Types:\n")
@@ -73,8 +73,10 @@ print(table(mine$Types))
 cat("\n")
 
 if (sum(mine$Types == "KCI", na.rm = TRUE) == 0) stop("No KCI rows for ", country_name, " in the epi table.")
-if (sum(mine$Types == "DHIS2" & as.character(mine$Year) == dhis2_year, na.rm = TRUE) == 0) {
-  stop("No DHIS2 rows for ", country_name, " with Year = ", dhis2_year, ". Section 6a would be empty.")
+use_dhis2 <- sum(mine$Types == "DHIS2" & as.character(mine$Year) == dhis2_year, na.rm = TRUE) > 0
+if (!use_dhis2) {
+  cat("NOTE: no DHIS2 rows for ", country_name, " with Year = ", dhis2_year,
+      ". Section 6a keeps the researcher's own table. Ask the researcher for DHIS2 rows, or check dhis2_year.\n\n", sep = "")
 }
 
 dups <- mine %>%
@@ -123,6 +125,15 @@ check_statcompiler(sc_path, country_name, file.path("config", "display_survey.cs
 # ---------- 4. Read the profile, fix image paths ----------
 raw <- paste(readLines(profile_path, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
 raw <- str_replace_all(raw, "\r\n", "\n")
+
+# A text line directly above '---' is read by markdown as a HEADING (big, bold text).
+# Put a blank line before every '---' line so it stays a divider.
+n_setext <- str_count(raw, "(?m)^[^\\n]*[^\\s\\n][^\\n]*\\n-{3,}[ \\t]*(?=\\n|$)")
+if (n_setext > 0) {
+  raw <- str_replace_all(raw, "(?m)([^\\s\\n][^\\n]*)\\n(-{3,}[ \\t]*)(?=\\n|$)", "\\1\n\n\\2")
+  cat("NOTE: added a blank line before ", n_setext, " '---' divider(s) in the profile, ",
+      "so the paragraph above is not turned into a heading. Ask the researcher to leave a blank line before '---'.\n\n", sep = "")
+}
 
 image_pattern <- "!\\[([^\\]]*)\\]\\(<?([^)>]+)>?\\)"
 image_matches <- str_match_all(raw, image_pattern)[[1]]
@@ -285,7 +296,7 @@ tbl <- data.frame(Indicator = esc(d$Label), Value = fmt(d$Value),
                   Unit = ifelse(d$Unit == "text", "", esc(d$Unit)),
                   stringsAsFactors = FALSE)
 if (one_source) {
-  if (any(ref != "")) tbl$Refer <- ref
+  if (any(ref != "")) tbl$`Table in source` <- ref
 } else {
   tbl$Source <- ifelse(lnk == "", esc(d$Source), paste0("<a href='", lnk, "'>", esc(d$Source), "</a>"))
   tbl$`Retrieved via` <- esc(d$Retrieved_via)
@@ -304,7 +315,7 @@ if (one_source) {
   src <- if (lnk[1] == "") esc(base[1]) else paste0("<a href='", lnk[1], "'>", esc(base[1]), "</a>")
   note <- paste0("<p class='det-source'><strong>Source:</strong> ", src, " (@@YEAR@@ data). Retrieved via: ",
                  esc(d$Retrieved_via[1]), ".",
-                 if (any(ref != "")) " Refer gives the table number in the source document, not a table on this page." else "",
+                 if (any(ref != "")) " The column 'Table in source' gives the table number in the source report, not a table on this page." else "",
                  "</p>")
 }
 knitr::asis_output(paste0(as.character(k), note))
@@ -343,10 +354,23 @@ survey_chunk <- make_survey_chunk()
 # ---------- 6a2. Which DET-built pieces can be used for this country ----------
 sheets_present <- openxlsx::getSheetNames(epi_table_path)
 use_res   <- "Insecticide_susceptibility" %in% sheets_present && file.exists(file.path("R", "sec10_vector_profile.R"))
-use_mech  <- use_res && "Resistance_mechanisms" %in% sheets_present
+use_vsum  <- file.exists(file.path("R", "sec10_vector_profile.R")) && file.exists(file.path("config", "display_vectors.csv")) &&
+  { vd <- read.csv(file.path("config", "display_vectors.csv"), stringsAsFactors = FALSE, na.strings = "", fileEncoding = "UTF-8")
+    any(mine$Types == "Vectors" & tolower(trimws(mine$Metric)) %in% tolower(trimws(vd$Metric)), na.rm = TRUE) }
+if (use_vsum) {
+  vd <- read.csv(file.path("config", "display_vectors.csv"), stringsAsFactors = FALSE, na.strings = "", fileEncoding = "UTF-8")
+  vr <- mine[mine$Types == "Vectors", ]
+  vi <- vr$Metric[!(tolower(trimws(vr$Metric)) %in% tolower(trimws(vd$Metric)))]
+  if (length(vi)) cat("NOTE: ", length(vi), " 'Vectors' row(s) in the Data tab are not in config/display_vectors.csv and are not shown in Table 4:\n  ",
+                      paste(unique(vi), collapse = "; "), "\n", sep = "")
+}
+if ("Resistance_mechanisms" %in% sheets_present)
+  cat("NOTE: the 'Resistance_mechanisms' tab is no longer used (Table 9b was removed). It is ignored.\n")
 use_refs  <- file.exists(file.path("R", "references.R"))
-if (use_res)  cat("Section 10 tables 9a", if (use_mech) "and 9b", "will be built from the epi table tabs.\n")
-if (!use_res) cat("No 'Insecticide_susceptibility' tab: the researcher's typed Section 10 tables are kept.\n")
+if (use_res)  cat("Section 10: the insecticide susceptibility table will be built from the 'Insecticide_susceptibility' tab.\n")
+if (use_vsum) cat("Section 10: the vector and parasite summary table will be built from the Data tab (Types = Vectors).\n")
+if (!use_res)  cat("No 'Insecticide_susceptibility' tab: the researcher's typed susceptibility table is kept.\n")
+if (!use_vsum) cat("No 'Vectors' rows in the Data tab: the researcher's typed vector summary table is kept.\n")
 if (use_refs) cat("Section 11 will be arranged by R/references.R.\n")
 
 # ---------- 6b. Script-built figures ----------
@@ -381,6 +405,17 @@ if (!is.null(fig_rows) && nrow(fig_rows) > 0) {
     if (!file.exists(file.path("R", r$script))) return(skip(paste0("R/", r$script, " not found")))
     if (!is.na(r$needs_sheet) && !(r$needs_sheet %in% sheets_present))
       return(skip(paste0("the epi table has no '", r$needs_sheet, "' sheet")))
+    if (!is.na(r$needs_sheet)) {
+      sh <- tryCatch(openxlsx::read.xlsx(epi_table_path, sheet = r$needs_sheet),
+                     error = function(e) NULL)
+      # a row counts only if its key column is filled (the template pre-fills other columns)
+      key_col <- c(Timeline = "Event", Health_system = "Level_name", Facilities = "Facility_name")[r$needs_sheet]; key_col <- if (is.na(key_col)) NULL else unname(key_col)
+      filled <- function(v) !is.na(v) & trimws(as.character(v)) != ""
+      has_rows <- !is.null(sh) && nrow(sh) > 0 &&
+        (if (!is.null(key_col) && key_col %in% names(sh)) any(filled(sh[[key_col]]))
+         else any(apply(sh, 1, function(z) any(filled(z)))))
+      if (!has_rows) return(skip(paste0("the '", r$needs_sheet, "' sheet has no rows")))
+    }
     if (!is.na(r$needs_path)) {
       p <- gsub("{slug}", slug, r$needs_path, fixed = TRUE)
       if (!file.exists(p)) return(skip(paste0(p, " not found")))
@@ -399,9 +434,14 @@ make_setup_chunk <- function(scripts) {
           "```", "", ""), collapse = "\n")
 }
 
-res_chunk <- function(fn) {
+res_chunk <- function(fn, bold_first = FALSE) {
+  # same table look as Tables 1 to 3: navy header row, striped rows, 13 pt
   paste(c("```{r}", "#| echo: false", "#| message: false",
-          paste0('knitr::kable(with_root(', fn, '("', slug, '")), escape = FALSE, align = "l")'),
+          "suppressPackageStartupMessages(library(kableExtra))",
+          paste0('kableExtra::kbl(with_root(', fn, '("', slug, '")), format = "html", escape = FALSE, align = "l") %>%'),
+          '  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE, font_size = 13) %>%',
+          paste0('  row_spec(0, bold = TRUE, background = "#1F3A5F", color = "white")', if (bold_first) " %>%" else ""),
+          if (bold_first) "  column_spec(1, bold = TRUE)",
           "```"), collapse = "\n")
 }
 
@@ -422,10 +462,28 @@ make_lead_chunk <- function(fn) {
 # One look for every Source line, and italic scientific names throughout.
 source(file.path("R", "text_utils.R"))
 
+# Researcher tables: typed "**Table N:** caption" lines are renumbered in page order,
+# so every table on the page is numbered once, whatever the researcher typed.
+table_n <- 0L
+number_typed_tables <- function(lines) {
+  for (i in seq_along(lines)) {
+    m <- regmatches(lines[i], regexec("^\\s*\\*\\*Table\\s*[0-9]+[a-z]?\\s*[:.]?\\s*\\*\\*\\s*(.*)$", lines[i]))[[1]]
+    if (length(m) == 2) { table_n <<- table_n + 1L; lines[i] <- paste0("**Table ", table_n, ":** ", trimws(m[2])) }
+  }
+  lines
+}
+
+# Generated chunks are single list elements that can hold several lines and several fences.
+# Count every fence, so the "inside a code block" state keeps the right parity.
+flip_code <- function(ln, in_code) {
+  n <- length(regmatches(ln, gregexpr("(?m)^\\s*```", ln, perl = TRUE))[[1]])
+  if (n %% 2 == 1) !in_code else in_code
+}
+
 standardise_source_lines <- function(lines) {
   out <- character(0); in_code <- FALSE
   for (ln in lines) {
-    if (grepl("^\\s*```", ln)) in_code <- !in_code
+    in_code <- flip_code(ln, in_code)
     if (!in_code) {
       ln <- sub("^\\*Source:?\\s*(.*?)\\*\\s*$", "**Source:** \\1", ln, perl = TRUE)   # *Source: ...*  ->  **Source:** ...
       if (grepl("^\\*\\*Source:?\\*\\*:?\\s*\\S", ln)) {
@@ -441,7 +499,7 @@ standardise_source_lines <- function(lines) {
 italicise_lines <- function(lines) {
   in_code <- FALSE
   for (i in seq_along(lines)) {
-    if (grepl("^\\s*```", lines[i])) { in_code <- !in_code; next }
+    if (grepl("(?m)^\\s*```", lines[i], perl = TRUE)) { in_code <- flip_code(lines[i], in_code); next }
     if (in_code || grepl("^\\s*(#|<|!\\[|:::)", lines[i])) next
     lines[i] <- italicise_species(lines[i])
   }
@@ -455,7 +513,7 @@ number_typed_figures <- function(lines) {
   out <- character(0); i <- 1; in_code <- FALSE
   while (i <= length(lines)) {
     ln <- lines[i]
-    if (grepl("^\\s*```", ln)) in_code <- !in_code
+    in_code <- flip_code(ln, in_code)
     m <- regmatches(ln, regexec("^!\\[[^]]*\\]\\((.+)\\)\\s*(\\{[^}]*\\})?\\s*$", ln))[[1]]
     if (!in_code && length(m) > 0) {
       k <- i + 1
@@ -537,7 +595,7 @@ replace_figure_block <- function(lines, replacement, match = NA, drop_para = FAL
 yaml_header <- paste0("---\n", "title: \"", country_name, " Malaria Epidemiology Summary\"\n",
                       "format: html\n", "---\n\n")
 setup_scripts <- unique(c("text_utils.R", if (length(fig_ok)) fig_rows$script[fig_ok],
-                          if (use_res) "sec10_vector_profile.R", if (use_refs) "references.R"))
+                          if (use_res || use_vsum) "sec10_vector_profile.R", if (use_refs) "references.R"))
 if (length(setup_scripts)) yaml_header <- paste0(yaml_header, make_setup_chunk(setup_scripts))
 
 body_parts <- c()
@@ -554,18 +612,32 @@ for (n in as.character(1:11)) {
     if (length(i6a) != 1 || length(i6b) != 1 || i6a > i6b) {
       stop("Section 6 must contain exactly one '### 6a' heading followed by one '### 6b' heading.")
     }
-    lines <- replace_first_table(lines, dhis2_chunk, from = i6a, to = i6b - 1)
+    if (use_dhis2) lines <- replace_first_table(lines, dhis2_chunk, from = i6a, to = i6b - 1)
     i6b <- grep("^### 6b", lines)            # positions moved after the 6a swap
     lines <- replace_first_table(lines, survey_chunk, from = i6b, to = length(lines))
   }
+  # Section 10 tables: a marker line  <!-- DET-TABLE: id -->  is replaced by the table;
+  # without a marker, the first typed table under the old headings is replaced instead.
+  swap_marker <- function(lines, id, chunk) {
+    mk <- grep(paste0("<!--\\s*DET-TABLE:\\s*", id, "\\s*-->"), lines)
+    if (length(mk) == 0) return(NULL)
+    c(lines[seq_len(mk[1] - 1)], chunk, lines[-seq_len(mk[1])])
+  }
   if (n == "10" && use_res) {
-    i9a <- grep("^#+\\s*Table 9a", lines); i9b <- grep("^#+\\s*Table 9b", lines)
-    if (length(i9a) == 1) {
-      end <- if (length(i9b) == 1 && i9b > i9a) i9b - 1 else length(lines)
-      lines <- replace_first_table(lines, res_chunk("tbl_susceptibility"), from = i9a, to = end)
-    } else cat("Section 10: no single '### Table 9a' heading found, typed table kept.\n")
-    i9b <- grep("^#+\\s*Table 9b", lines)
-    if (use_mech && length(i9b) == 1) lines <- replace_first_table(lines, res_chunk("tbl_mechanisms"), from = i9b, to = length(lines))
+    sw <- swap_marker(lines, "insecticide-susceptibility", res_chunk("tbl_susceptibility"))
+    if (!is.null(sw)) lines <- sw else {
+      i9a <- grep("^#+\\s*(Table 9a|Insecticide susceptibility)", lines)
+      if (length(i9a) >= 1) lines <- replace_first_table(lines, res_chunk("tbl_susceptibility"), from = i9a[1], to = length(lines))
+      else cat("Section 10: no <!-- DET-TABLE: insecticide-susceptibility --> marker and no 'Insecticide susceptibility' heading found. Typed table kept.\n")
+    }
+  }
+  if (n == "10" && use_vsum) {
+    sw <- swap_marker(lines, "vector-summary", res_chunk("tbl_vector_summary", bold_first = TRUE))
+    if (!is.null(sw)) lines <- sw else {
+      ivs <- grep("^\\|\\s*Metric\\s*\\|", lines)
+      if (length(ivs) >= 1) lines <- replace_first_table(lines, res_chunk("tbl_vector_summary", bold_first = TRUE), from = ivs[1], to = length(lines))
+      else cat("Section 10: no <!-- DET-TABLE: vector-summary --> marker found. Typed table kept.\n")
+    }
   }
   if (n == "11" && use_refs) {
     used <- c(if (length(fig_ok) && any(fig_ok & fig_rows$fig_id == "admin-map")) "boundaries",
@@ -583,6 +655,7 @@ for (n in as.character(1:11)) {
   }
 
   lines <- number_typed_figures(lines)
+  lines <- number_typed_tables(lines)
   lines <- standardise_source_lines(lines)
   lines <- italicise_lines(lines)
 
@@ -625,7 +698,7 @@ writeLines(final_qmd, output_path, useBytes = TRUE)
 
 cat("Wrote", output_path, "\n")
 cat("Section 2 table read from epi table: Types = KCI\n")
-cat("Section 6a table read from epi table: Types = DHIS2, Year =", dhis2_year, ", arranged by", display_path, "\n")
+if (use_dhis2) cat("Section 6a table read from epi table: Types = DHIS2, Year =", dhis2_year, ", arranged by", display_path, "\n") else cat("Section 6a: researcher's own table kept (no DHIS2 rows).\n")
 cat("Section 6b table read from the raw StatCompiler file:", sc_file, ", most recent", survey_rounds, "rounds\n")
 cat("Path baked into the chunks (should start with '../'):", epi_table_rel_path, "\n")
 if (any(fig_ok)) cat("Script-built figures in this page:", paste(fig_rows$fig_id[fig_ok], collapse = ", "), "\n")

@@ -16,3 +16,11 @@ backgroung image.jpg
 country profile home.jpeg
 
 **/*.quarto_ipynb
+~$*
+
+*_TEST.html
+*_TEST_files/
+*_files/
+
+.Rhistory
+~$*

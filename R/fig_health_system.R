@@ -152,7 +152,7 @@ fig_health_system_text <- function(slug, path = NULL) {
   src <- unique(x$Source[x$Source != ""])
   src_txt <- if (length(src)) paste(src, collapse = "; ") else "Source needed (Health_system tab)."
   if (any(x$defaulted != ""))
-    src_txt <- paste0(src_txt, " Where the country tab was blank, facility types and roles in malaria control are standard descriptions based on WHO guidance.")
+    src_txt <- paste0(sub("([^.])$", "\\1.", trimws(src_txt)), " Where the country tab was blank, facility types and roles in malaria control are standard descriptions based on WHO guidance.")
   list(caption = paste0("Organisation of health administration and service delivery, ", s$country_name, "."),
        source  = src_txt)
 }

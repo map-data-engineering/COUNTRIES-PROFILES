@@ -1,2 +1,3 @@
 "country","source","package_version","release_year","retrieved_date","licence","n_admin1","n_admin2","dropped","release_version"
 "mozambique","MAP admin boundaries via malariaAtlas","1.7.0",NA,"2026-10-15","","11","161","Lake Malawi","202403"
+"benin","MAP admin boundaries via malariaAtlas","1.7.0",NA,"2026-10-21","","12","34","","202403"
