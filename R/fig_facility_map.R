@@ -41,6 +41,6 @@ fig_facility_map_text <- function(slug) {
                      " health facilities in ", s$country_name, " (",
                      n[["Tertiary"]], " tertiary, ", n[["Secondary"]], " secondary, ",
                      format(n[["Primary"]], big.mark = ","), " primary)."),
-    source  = paste0(facility_source(slug), " Boundaries: ", boundary_source(slug))
+    source  = paste0(facility_source(slug), " ", boundary_source(slug))
   )
 }

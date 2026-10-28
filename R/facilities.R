@@ -134,6 +134,7 @@ facility_text_map <- function(slug) {
   hb <- x$hosp_by[x$hosp_by > 0]; top <- head(hb, 2)
   paste0(
     "Of the facilities mapped, ", x$n_hosp, " are hospitals (secondary or tertiary level). The largest numbers are in ",
-    .fac_list(paste0(names(top), " (", as.integer(top), ")")), "; ",
-    sum(x$hosp_by == 0), " of ", x$n_prov, " ", L, "s have none recorded in this dataset.")
+    .fac_list(paste0(names(top), " (", as.integer(top), ")")),
+    if (sum(x$hosp_by == 0) == 0) paste0("; every ", L, " has at least one hospital recorded in this dataset.")
+    else paste0("; ", sum(x$hosp_by == 0), " of ", x$n_prov, " ", L, "s have none recorded in this dataset."))
 }

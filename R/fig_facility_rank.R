@@ -51,6 +51,6 @@ fig_facility_rank_text <- function(slug) {
   list(
     caption = paste0("Number of health facilities by ", tolower(s$admin1_label), " and level of care, ",
                      s$country_name, " (total ", format(nrow(f), big.mark = ","), ")."),
-    source  = paste0(facility_source(slug), " Boundaries: ", boundary_source(slug))
+    source  = paste0(facility_source(slug), " ", boundary_source(slug))
   )
 }

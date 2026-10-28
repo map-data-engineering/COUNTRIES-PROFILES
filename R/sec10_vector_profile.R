@@ -4,8 +4,9 @@
 ##    1. fetch_vector_distribution(): one-time download of MAP vector surfaces,
 ##       averaged by district, saved to data/vectors/<slug>/ (needs internet)
 ##    2. fig_vectors(): Figure 15, distribution of the major vectors by district
-##    3. tbl_susceptibility(), tbl_mechanisms(): Tables 9a and 9b, built from the
-##       researcher's tabs "Insecticide_susceptibility" and "Resistance_mechanisms"
+##    3. tbl_susceptibility(), tbl_vector_summary(): the insecticide susceptibility
+##       table and the vector and parasite summary table, built from the
+##       researcher's tabs "Insecticide_susceptibility" and the Data tab (Types = Vectors)
 ##       in the epi workbook (template: insecticide_resistance_*.xlsx)
 ##    4. resistance_checks(): console report on the tabs, run by the generator
 ##
@@ -192,13 +193,13 @@ fig_vectors_text <- function(slug) {
                      if (anyNA(d[, setdiff(names(d), c("name_1", "name_2")), drop = FALSE])) " Grey areas have no data in the surface." else ""),
     source  = paste0("Malaria Atlas Project (malariaAtlas package, retrieved ", m$retrieved_date[1], "): ",
                      paste(unique(fix_utf8(m$title[nzchar(m$title)])), collapse = "; "),
-                     ". Each ", tolower(s$admin2_label), " shows the mean of the surface within it. Boundaries: ",
+                     ". Each ", tolower(s$admin2_label), " shows the mean of the surface within it. ",
                      boundary_source(slug))
   )
 }
 
 ## --------------------------------------------------------------------------
-##  3. Tables 9a and 9b from the researcher's tabs
+##  3. Insecticide susceptibility table and vector summary table, from the researcher's tabs
 ## --------------------------------------------------------------------------
 res_cols <- c(Susceptible = "#009E73", "Possible resistance" = "#B8860B",
               Resistant = "#D55E00", Mixed = "#6B7280")
@@ -255,22 +256,36 @@ tbl_susceptibility <- function(slug) {
     stringsAsFactors = FALSE, check.names = FALSE)
 }
 
-tbl_mechanisms <- function(slug) {
-  d <- read_epi_sheet(slug, "Resistance_mechanisms")
-  .res_need(d, c("Year_start", "Species", "Finding", "Source"), "Resistance_mechanisms")
-  if (!"Year_end" %in% names(d)) d$Year_end <- d$Year_start
-  for (k in c("Mechanism_type", "Value", "Sites", "DOI")) if (!k %in% names(d)) d[[k]] <- ""
-  d <- d[!is.na(d$Species) | !is.na(d$Finding), ]
-  d <- d[order(d$Year_start, d$Species), ]
-  data.frame(
-    Year      = res_year(d$Year_start, d$Year_end),
-    Species   = paste0("<em>", res_esc(d$Species), "</em>"),
-    Mechanism = res_esc(d$Mechanism_type),
-    Finding   = res_esc(d$Finding),
-    Value     = res_esc(d$Value),
-    Sites     = res_esc(d$Sites),
-    Source    = res_source_cell(d$Source, d$DOI),
-    stringsAsFactors = FALSE, check.names = FALSE)
+## Table of vector and parasite species facts, from the Data tab (Types = Vectors).
+## Only the metrics in config/display_vectors.csv are shown, in that order. Other
+## 'Vectors' rows are ignored here. Columns used: Metric, Value; Source, Link if present.
+vector_summary_rows <- function(slug) {
+  d <- read_epi_sheet(slug, "Data")
+  .res_need(d, c("Types", "Country", "Metric", "Value"), "Data")
+  cn <- get_country_settings(slug)$country_name
+  disp <- utils::read.csv(file.path("config", "display_vectors.csv"), stringsAsFactors = FALSE,
+                          na.strings = "", fileEncoding = "UTF-8")
+  key <- function(x) tolower(trimws(as.character(x)))
+  d <- d[!is.na(d$Types) & d$Types == "Vectors" & !is.na(d$Country) & d$Country == cn &
+         !is.na(d$Value) & nzchar(trimws(as.character(d$Value))), , drop = FALSE]
+  shown <- key(d$Metric) %in% key(disp$Metric)
+  list(shown = d[shown, , drop = FALSE][order(match(key(d$Metric[shown]), key(disp$Metric))), , drop = FALSE],
+       ignored = d$Metric[!shown], display = disp$Metric)
+}
+
+tbl_vector_summary <- function(slug) {
+  r <- vector_summary_rows(slug); d <- r$shown
+  if (!"Source" %in% names(d)) d$Source <- NA_character_
+  if (!"Link"   %in% names(d)) d$Link   <- NA_character_
+  ital <- function(x) {                       # species names in italics, in HTML
+    x <- res_esc(x)
+    if (exists("italicise_species")) x <- italicise_species(x)
+    unname(gsub("\\*([^*]+)\\*", "<em>\\1</em>", x))
+  }
+  out <- data.frame(Metric = res_esc(d$Metric), Value = ital(d$Value), stringsAsFactors = FALSE)
+  has_src <- !is.na(d$Source) & nzchar(trimws(as.character(d$Source)))
+  if (any(has_src)) out$Source <- ifelse(has_src, res_source_cell(d$Source, d$Link), "")
+  out
 }
 
 ## --------------------------------------------------------------------------
