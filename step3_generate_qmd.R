@@ -27,7 +27,7 @@ library(openxlsx)
 # ---------- 1. Settings: the only lines to change for another country ----------
 country_name <- "Benin"
 slug         <- "benin"   # folder name under submissions/
-dhis2_year   <- "2023"         # year shown in Section 6a. Must match the year in the .md caption.
+dhis2_year   <- "2022"         # year shown in Section 6a. Must match the year in the .md caption.
 survey_rounds <- 5             # most recent survey rounds shown in Section 6b
 
 sub_dir     <- file.path("submissions", slug)
@@ -73,8 +73,10 @@ print(table(mine$Types))
 cat("\n")
 
 if (sum(mine$Types == "KCI", na.rm = TRUE) == 0) stop("No KCI rows for ", country_name, " in the epi table.")
-if (sum(mine$Types == "DHIS2" & as.character(mine$Year) == dhis2_year, na.rm = TRUE) == 0) {
-  stop("No DHIS2 rows for ", country_name, " with Year = ", dhis2_year, ". Section 6a would be empty.")
+use_dhis2 <- sum(mine$Types == "DHIS2" & as.character(mine$Year) == dhis2_year, na.rm = TRUE) > 0
+if (!use_dhis2) {
+  cat("NOTE: no DHIS2 rows for ", country_name, " with Year = ", dhis2_year,
+      ". Section 6a keeps the researcher's own table. Ask the researcher for DHIS2 rows, or check dhis2_year.\n\n", sep = "")
 }
 
 dups <- mine %>%
@@ -123,6 +125,15 @@ check_statcompiler(sc_path, country_name, file.path("config", "display_survey.cs
 # ---------- 4. Read the profile, fix image paths ----------
 raw <- paste(readLines(profile_path, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
 raw <- str_replace_all(raw, "\r\n", "\n")
+
+# A text line directly above '---' is read by markdown as a HEADING (big, bold text).
+# Put a blank line before every '---' line so it stays a divider.
+n_setext <- str_count(raw, "(?m)^[^\\n]*[^\\s\\n][^\\n]*\\n-{3,}[ \\t]*(?=\\n|$)")
+if (n_setext > 0) {
+  raw <- str_replace_all(raw, "(?m)([^\\s\\n][^\\n]*)\\n(-{3,}[ \\t]*)(?=\\n|$)", "\\1\n\n\\2")
+  cat("NOTE: added a blank line before ", n_setext, " '---' divider(s) in the profile, ",
+      "so the paragraph above is not turned into a heading. Ask the researcher to leave a blank line before '---'.\n\n", sep = "")
+}
 
 image_pattern <- "!\\[([^\\]]*)\\]\\(<?([^)>]+)>?\\)"
 image_matches <- str_match_all(raw, image_pattern)[[1]]
@@ -381,6 +392,17 @@ if (!is.null(fig_rows) && nrow(fig_rows) > 0) {
     if (!file.exists(file.path("R", r$script))) return(skip(paste0("R/", r$script, " not found")))
     if (!is.na(r$needs_sheet) && !(r$needs_sheet %in% sheets_present))
       return(skip(paste0("the epi table has no '", r$needs_sheet, "' sheet")))
+    if (!is.na(r$needs_sheet)) {
+      sh <- tryCatch(openxlsx::read.xlsx(epi_table_path, sheet = r$needs_sheet),
+                     error = function(e) NULL)
+      # a row counts only if its key column is filled (the template pre-fills other columns)
+      key_col <- c(Timeline = "Event", Health_system = "Level_name", Facilities = "Facility_name")[r$needs_sheet]; key_col <- if (is.na(key_col)) NULL else unname(key_col)
+      filled <- function(v) !is.na(v) & trimws(as.character(v)) != ""
+      has_rows <- !is.null(sh) && nrow(sh) > 0 &&
+        (if (!is.null(key_col) && key_col %in% names(sh)) any(filled(sh[[key_col]]))
+         else any(apply(sh, 1, function(z) any(filled(z)))))
+      if (!has_rows) return(skip(paste0("the '", r$needs_sheet, "' sheet has no rows")))
+    }
     if (!is.na(r$needs_path)) {
       p <- gsub("{slug}", slug, r$needs_path, fixed = TRUE)
       if (!file.exists(p)) return(skip(paste0(p, " not found")))
@@ -554,7 +576,7 @@ for (n in as.character(1:11)) {
     if (length(i6a) != 1 || length(i6b) != 1 || i6a > i6b) {
       stop("Section 6 must contain exactly one '### 6a' heading followed by one '### 6b' heading.")
     }
-    lines <- replace_first_table(lines, dhis2_chunk, from = i6a, to = i6b - 1)
+    if (use_dhis2) lines <- replace_first_table(lines, dhis2_chunk, from = i6a, to = i6b - 1)
     i6b <- grep("^### 6b", lines)            # positions moved after the 6a swap
     lines <- replace_first_table(lines, survey_chunk, from = i6b, to = length(lines))
   }
@@ -625,7 +647,7 @@ writeLines(final_qmd, output_path, useBytes = TRUE)
 
 cat("Wrote", output_path, "\n")
 cat("Section 2 table read from epi table: Types = KCI\n")
-cat("Section 6a table read from epi table: Types = DHIS2, Year =", dhis2_year, ", arranged by", display_path, "\n")
+if (use_dhis2) cat("Section 6a table read from epi table: Types = DHIS2, Year =", dhis2_year, ", arranged by", display_path, "\n") else cat("Section 6a: researcher's own table kept (no DHIS2 rows).\n")
 cat("Section 6b table read from the raw StatCompiler file:", sc_file, ", most recent", survey_rounds, "rounds\n")
 cat("Path baked into the chunks (should start with '../'):", epi_table_rel_path, "\n")
 if (any(fig_ok)) cat("Script-built figures in this page:", paste(fig_rows$fig_id[fig_ok], collapse = ", "), "\n")
