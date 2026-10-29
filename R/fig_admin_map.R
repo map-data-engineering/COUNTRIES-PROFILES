@@ -56,7 +56,8 @@ fig_admin_map <- function(slug, label_min_share = 0.015,
     guides(fill  = guide_legend(order = 1),
            shape = guide_legend(order = 2,
                                 override.aes = list(fill = "white", colour = det_cols$capital))) +
-    theme_det()
+    theme_det() +
+    det_map_grid()
 
   ## Names on the map only for units big enough to hold a label; the legend
   ## names every unit.
@@ -73,6 +74,14 @@ fig_admin_map <- function(slug, label_min_share = 0.015,
   ## city province). Set zoom_admin1 in config/country_settings.csv.
   zoom_name <- if (is.null(s$zoom_admin1) || is.na(s$zoom_admin1)) "" else trimws(s$zoom_admin1)
   zoom <- NULL
+  ## Hint: tell DET when the capital sits in a unit too small to read
+  hit <- suppressWarnings(sf::st_intersects(cap, adm1)[[1]])
+  if (length(hit) == 1 && !nzchar(zoom_name)) {
+    share <- as.numeric(sf::st_area(adm1[hit, ])) / sum(as.numeric(sf::st_area(adm1)))
+    if (share < label_min_share)
+      message("Note: the capital sits in '", adm1$name_1[hit], "' (", round(100 * share, 1),
+              "% of the country), too small to read. Consider setting zoom_admin1 for ", slug, ".")
+  }
   if (nzchar(zoom_name)) {
     unit <- adm1[adm1$name_1 == tidy_names(zoom_name), ]
     if (nrow(unit) == 0) {

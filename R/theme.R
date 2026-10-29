@@ -41,6 +41,29 @@ theme_det <- function(base_size = 11) {
     )
 }
 
+
+## ---- latitude / longitude grid for every map ------------------------------------
+## Add with  + det_map_grid()  . Thin dotted lines drawn over the map, degrees on the
+## outer edges. Not used on diagrams or charts.
+det_map_grid <- function(n_breaks = 5) {
+  list(
+    ggplot2::coord_sf(datum = sf::st_crs(4326), expand = FALSE),
+    ggplot2::scale_x_continuous(n.breaks = n_breaks),
+    ggplot2::scale_y_continuous(n.breaks = n_breaks),
+    ggplot2::theme(
+      panel.grid.major = ggplot2::element_line(colour = "#00000045", linewidth = 0.15, linetype = "dotted"),
+      panel.background = ggplot2::element_blank(),
+      panel.ontop      = TRUE,
+      axis.text        = ggplot2::element_text(size = 7, colour = det_cols$muted),
+      axis.ticks       = ggplot2::element_line(colour = det_cols$spine, linewidth = 0.2),
+      axis.ticks.length = grid::unit(2, "pt")
+    )
+  )
+}
+
+## "Cidade De Maputo" -> "Cidade de Maputo"
+if (!exists("tidy_names")) tidy_names <- function(x) gsub("\\b(De|Do|Da|Dos|Das)\\b", "\\L\\1", x, perl = TRUE)
+
 ## ---- country settings --------------------------------------------------------
 ## One row per country in config/country_settings.csv.
 ## (Later this moves to the Country_settings tab of the epi workbook.)
