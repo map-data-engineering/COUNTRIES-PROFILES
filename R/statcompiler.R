@@ -183,11 +183,11 @@ survey_table <- function(path, country, display_csv, n_rounds = 5) {
     pack_rows(index = setNames(as.integer(idx), names(idx)),
               label_row_css = "background-color: #EEF2F7; color: #1F3A5F; font-weight: 600;")
 
-  # Plain wording: no publication year of the tool, no funder line, no file name.
-  # Only the access date is taken from the export's own citation line.
-  acc <- if (is.na(cite)) "" else trimws(sub("\\.$", "", sub("^.*statcompiler\\.com\\.?\\s*", "", cite, ignore.case = TRUE)))
-  acc <- if (nzchar(acc) && grepl("[0-9]{4}", acc) && nchar(acc) < 30) paste0(" Accessed ", acc, ".") else ""
-  src <- paste0("The DHS Program STATcompiler (ICF), <a href='http://www.statcompiler.com'>www.statcompiler.com</a>.", acc)
+  # The DHS Program's own recommended citation, taken exactly as the export gives it
+  # (ICF, year. The DHS Program STATcompiler. Funded by USAID. URL. Accessed date).
+  src <- if (is.na(cite)) "The DHS Program STATcompiler. http://www.statcompiler.com." else esc(trimws(cite))
+  src <- sub("([^.])$", "\\1.", src)
+  src <- sub("http://www.statcompiler.com", "<a href='http://www.statcompiler.com'>www.statcompiler.com</a>", src, fixed = TRUE)
   note <- paste0("<p class='det-source'><strong>Source:</strong> ", src, " ",
                  "Confidence intervals are shown for prevalence and mortality. ",
                  "A dash means the indicator was not measured in that survey.</p>")

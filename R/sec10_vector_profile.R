@@ -170,6 +170,7 @@ fig_vectors <- function(slug) {
                          name = "Relative probability\nof occurrence",
                          guide = guide_colourbar(barwidth = 12, barheight = 0.6, title.position = "top")) +
     theme_det() +
+    det_map_grid(n_breaks = 3) +
     theme(legend.position = "bottom",
           strip.background = element_blank(),
           strip.text = element_text(face = "italic", hjust = 0.5, size = 11, margin = margin(t = 4, b = 8)),
@@ -187,13 +188,24 @@ fig_vectors_text <- function(slug) {
   d <- read_vectors(slug); n <- ncol(d) - 2
   m <- utils::read.csv(file.path("data", "vectors", slug, "vector_surfaces.csv"),
                        stringsAsFactors = FALSE, fileEncoding = "UTF-8")
+  ## Publication year of each surface, read from its dataset id (for example "..__2017_.."). These
+  ## are long-term modelled distributions, not estimates for one year.
+  yr  <- suppressWarnings(as.integer(sub("^.*__([0-9]{4})_.*$", "\\1", m$dataset_id)))
+  yr[!grepl("__[0-9]{4}_", m$dataset_id)] <- NA_integer_
+  yrs <- sort(unique(yr[!is.na(yr)]))
+  yr_txt <- if (length(yrs) == 0) "" else
+    paste0(" The surfaces are long-term modelled distributions published in ",
+           paste(yrs, collapse = " and "), ", not estimates for a single year.")
+  by_yr <- if (length(yrs) > 1)
+    paste0(" Publication year by species: ",
+           paste0(m$species, " (", ifelse(is.na(yr), "year not recorded", yr), ")", collapse = ", "), ".") else ""
   list(
     caption = paste0("Modelled relative probability of occurrence of ", n, " dominant malaria vector species by ",
-                     tolower(s$admin2_label), ", ", s$country_name, ".",
+                     tolower(s$admin2_label), ", ", s$country_name, ".", yr_txt,
                      if (anyNA(d[, setdiff(names(d), c("name_1", "name_2")), drop = FALSE])) " Grey areas have no data in the surface." else ""),
     source  = paste0("Malaria Atlas Project (malariaAtlas package, retrieved ", m$retrieved_date[1], "): ",
-                     paste(unique(fix_utf8(m$title[nzchar(m$title)])), collapse = "; "),
-                     ". Each ", tolower(s$admin2_label), " shows the mean of the surface within it. ",
+                     paste(unique(fix_utf8(m$title[nzchar(m$title)])), collapse = "; "), ".", by_yr,
+                     " Each ", tolower(s$admin2_label), " shows the mean of the surface within it. ",
                      boundary_source(slug))
   )
 }

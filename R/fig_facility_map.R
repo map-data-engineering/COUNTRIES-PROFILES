@@ -17,6 +17,8 @@ fig_facility_map <- function(slug) {
   adm2 <- sf::st_read(file.path(dir, "adm2.gpkg"), quiet = TRUE)
   f    <- read_facilities(slug, quiet = TRUE)
   f    <- f[order(f$tier, decreasing = TRUE), ]   # hospitals drawn on top of small facilities
+  adm1$name_1 <- tidy_names(adm1$name_1)
+  lab  <- sf::st_point_on_surface(adm1)           # province names, placed inside each province
 
   ggplot() +
     geom_sf(data = adm2, fill = "#F7F8FA", colour = det_cols$border2, linewidth = 0.1) +
@@ -26,9 +28,12 @@ fig_facility_map <- function(slug) {
     scale_fill_manual(values = fac_tier_cols, labels = fac_tier_labels, name = NULL, drop = FALSE) +
     scale_shape_manual(values = fac_tier_shapes, labels = fac_tier_labels, name = NULL, drop = FALSE) +
     scale_size_manual(values = fac_tier_sizes, labels = fac_tier_labels, name = NULL, drop = FALSE) +
+    geom_sf_text(data = lab, aes(label = name_1), size = 2.4, fontface = "bold",
+                 colour = det_cols$text, check_overlap = TRUE) +
     guides(fill  = guide_legend(override.aes = list(size = unname(fac_tier_sizes + 1.2))),
            shape = guide_legend(), size = guide_legend()) +
     theme_det() +
+    det_map_grid() +
     theme(legend.position = "bottom")
 }
 
