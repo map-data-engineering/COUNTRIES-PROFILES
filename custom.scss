@@ -5,23 +5,23 @@
 
 /*-- scss:defaults --*/
 
+// $primary-dark and $body-color come from styles.scss (loaded first in
+// _quarto.yml's theme list), so the homepage and these content-page rules
+// draw from one shared palette. $navy is kept as its own token only because
+// R/statcompiler.R hardcodes the same #1F3A5F for kableExtra table headers —
+// don't change its value without updating that R script + re-freezing.
 $navy:       #1F3A5F;
-$navy-dark:  #14283F;
-$gray-text:  #4A4A4A;
 $border:     #DDDDDD;
-
-/* Bootstrap variable override — affects links, buttons, accents site-wide */
-$primary: $navy;
 
 /*-- scss:rules --*/
 
 /* ---------- Typography ---------- */
 body {
-  color: $gray-text;
+  color: $body-color;
 }
 
 h1, h2, h3, h4 {
-  color: $navy-dark;
+  color: $primary-dark;
   font-weight: 600;
 }
 
@@ -29,6 +29,35 @@ h2 {
   border-bottom: 2px solid $navy;
   padding-bottom: 0.3rem;
   margin-top: 2.5rem;
+}
+
+/* ---------- Title block ----------
+   A light tinted card behind every content page's title (country profiles,
+   About, Data Sources, Help) instead of a bare heading on the page
+   background — ties these pages visually to the homepage's tinted hero
+   without needing per-page markup. The homepage hides this block entirely
+   (see styles.scss) since it has its own hero instead. */
+#title-block-header {
+  background: linear-gradient(180deg, #eef3fb 0%, #f6f8fb 100%);
+  border-radius: $card-border-radius;
+  padding: 2rem 2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#title-block-header .title {
+  color: $primary-dark;
+}
+
+#title-block-header .subtitle {
+  color: $body-color;
+}
+
+/* ---------- Callouts ----------
+   Match the soft rounded-card language used on the homepage instead of
+   Bootstrap/Quarto's flat default callout box. */
+.callout {
+  border-radius: $card-border-radius;
+  box-shadow: 0 0.4rem 1rem rgba(20, 40, 63, 0.06);
 }
 
 /* ---------- Images / figures ----------

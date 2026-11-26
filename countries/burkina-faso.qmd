@@ -1,5 +1,5 @@
 ---
-title: "🇧🇫 Burkina Faso"
+title: "Burkina Faso"
 subtitle: "Malaria Country Profile"
 ---
 

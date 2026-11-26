@@ -1,5 +1,5 @@
 ---
-title: "🇹🇿 Tanzania"
+title: "Tanzania"
 subtitle: "Malaria Country Profile"
 ---
 

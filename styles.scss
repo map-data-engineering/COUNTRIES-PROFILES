@@ -1,7 +1,12 @@
 /*-- scss:defaults --*/
 
+// Shared design tokens — reused by custom.scss (country-profile pages) so
+// the homepage and the content pages draw from one palette instead of two
+// almost-matching ones. $primary-dark is kept equal to the navy that
+// R/statcompiler.R hardcodes for kableExtra table headers (#1F3A5F family);
+// don't drift it from that without also updating that R script + re-freezing.
 $primary:       #2f6fed;
-$primary-dark:  #15233f;
+$primary-dark:  #14283f;
 $accent:        #14b8a6;
 
 $body-bg:       #f6f8fb;
@@ -13,6 +18,8 @@ $navbar-fg:     #ffffff;
 
 $card-border-radius: 0.6rem;
 $border-radius: 0.5rem;
+
+$font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
 /*-- scss:rules --*/
 
@@ -73,6 +80,8 @@ main.content:has(.hero-light) #title-block-header {
 
 .hero-grid {
   width: 100%;
+  max-width: 96rem;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 3rem;
@@ -137,8 +146,8 @@ main.content:has(.hero-light) #title-block-header {
 }
 
 .africa-badge {
-  width: 21rem;
-  height: 22rem;
+  width: clamp(18rem, 24vw, 27rem);
+  height: clamp(18.9rem, 25.2vw, 28.4rem);
   flex-shrink: 0;
 }
 
@@ -210,6 +219,8 @@ main.content:has(.hero-light) #title-block-header {
 
 .countries-section {
   padding: 3.5rem 0 1rem;
+  max-width: 110rem;
+  margin: 0 auto;
 }
 
 .countries-heading-row {
@@ -240,7 +251,7 @@ main.content:has(.hero-light) #title-block-header {
 
 .country-grid-new {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
   gap: 1rem;
 }
 
@@ -309,6 +320,8 @@ a.country-tile:hover {
 
 .sections-strip-inner {
   width: 100%;
+  max-width: 96rem;
+  margin: 0 auto;
   padding: 2.5rem 1.5rem;
   display: flex;
   gap: 2.5rem;

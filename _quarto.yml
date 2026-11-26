@@ -49,6 +49,7 @@ website:
 format:
   html:
     theme: [cosmo, styles.scss, custom.scss]
+    include-in-header: includes/fonts.html
     toc: false
     anchor-sections: false
     link-external-newwindow: true
