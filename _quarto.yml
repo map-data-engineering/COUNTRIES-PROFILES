@@ -16,6 +16,8 @@ website:
   search: true
   navbar:
     background: primary
+    logo: images/map-logo.png
+    logo-alt: "Malaria Atlas Project"
     left:
       - href: index.qmd
         text: Home

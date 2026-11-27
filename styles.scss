@@ -7,14 +7,22 @@
 // don't drift it from that without also updating that R script + re-freezing.
 $primary:       #2f6fed;
 $primary-dark:  #14283f;
-$accent:        #14b8a6;
+
+// Malaria Atlas Project's actual brand gold, confirmed from
+// malariaatlas.org's own compiled CSS (.bg-yellow/.yellow/banner h1 all
+// use this exact hex). Used for hero accents, the "live country" map
+// fill and the search button — not as the sitewide link/button color,
+// since gold-on-white text badly fails contrast.
+$map-gold:      #ebbc40;
 
 $body-bg:       #f6f8fb;
 $body-color:    #44546b;
 $link-color:    $primary;
 
-$navbar-bg:     #262626;
-$navbar-fg:     #ffffff;
+// White navbar with the MAP logo + charcoal text/active-pill, matching
+// malariaatlas.org's own white header instead of a colored bar.
+$navbar-bg:     #ffffff;
+$navbar-fg:     #262626;
 
 $card-border-radius: 0.6rem;
 $border-radius: 0.5rem;
@@ -26,27 +34,52 @@ $font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI",
 .navbar-brand {
   font-weight: 700;
   letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+// Quarto's own built-in .navbar-logo rules (two conflicting ones, from
+// different bootstrap bundles) otherwise squash this into a near-square
+// box with object-fit: fill, stretching the wordmark. Pin both
+// dimensions to the real 246:48 asset ratio instead of trusting "auto".
+.navbar-logo {
+  height: 1.75rem !important;
+  width: 8.95rem !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  padding-right: 0.5rem;
+}
+
+// Smaller on narrow screens so the logo doesn't crowd out the title text.
+@media (max-width: 575.98px) {
+  .navbar-logo {
+    height: 1.2rem !important;
+    width: 6.14rem !important;
+  }
+}
+
+.navbar {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+// Quarto marks the current page's top-level nav item with .active;
+// style it as a solid charcoal pill (matches the Malaria Atlas Project
+// site's own nav treatment) instead of the default underline/color
+// change. Hardcoded rather than reusing $navbar-bg since that variable
+// is the navbar's own (now white) background, not this pill's.
+.navbar .nav-link.active {
+  background: #262626;
+  color: #ffffff !important;
+  border-radius: 50rem;
+  padding: 0.4rem 1rem;
 }
 
 // ---- Buttons ----------------------------------------------------------
 
 .btn {
   border-radius: 50rem;
-}
-
-.btn-primary-pill {
-  background: $primary;
-  border-color: $primary;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.7rem 1.6rem;
-}
-
-.btn-primary-pill:hover,
-.btn-primary-pill:focus {
-  background: darken($primary, 8%);
-  border-color: darken($primary, 8%);
-  color: #ffffff;
 }
 
 // Quarto's page-columns grid enforces a >=500px content column that
@@ -62,23 +95,48 @@ $font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI",
 // spacing (#quarto-content>* padding-top, plus the empty header's own
 // margin) — drop both, scoped to pages that have a hero (the home page)
 // so other pages keep their normal title spacing.
-main.content:has(.hero-light) {
+main.content:has(.hero-dark) {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
-main.content:has(.hero-light) #title-block-header {
+main.content:has(.hero-dark) #title-block-header {
   display: none;
 }
 
-// ---- Hero (light) -------------------------------------------------------
+// ---- Hero (dark / MAP brand) ---------------------------------------------
+// Charcoal matches the Malaria Atlas Project wordmark's own near-black
+// (not navy — MAP's real site has no blue in it at all, just
+// black/charcoal, gold and white), gold is their confirmed brand gold.
 
-.hero-light {
-  background: linear-gradient(180deg, #eef3fb 0%, #f6f8fb 100%);
-  padding: 3.5rem 1.5rem;
+.hero-dark {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1b1b1b 0%, #2b2b2b 55%, #1a1a1a 100%);
+  padding: 4rem 1.5rem 5.5rem;
+}
+
+// A small decorative corner photo, not a dominant block — radial-masked
+// so it fades to nothing well before it would cross behind the hero
+// copy's text, rather than showing as a hard-edged rectangle.
+.hero-photo {
+  position: absolute;
+  left: -2rem;
+  bottom: -1.5rem;
+  width: 18rem;
+  height: 11rem;
+  background-image: url('images/hero-background.jpg');
+  background-size: cover;
+  background-position: center 35%;
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(ellipse at 35% 65%, black 0%, black 25%, transparent 68%);
+  mask-image: radial-gradient(ellipse at 35% 65%, black 0%, black 25%, transparent 68%);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero-grid {
+  position: relative;
   width: 100%;
   max-width: 96rem;
   margin: 0 auto;
@@ -86,6 +144,7 @@ main.content:has(.hero-light) #title-block-header {
   align-items: center;
   gap: 3rem;
   flex-wrap: wrap;
+  z-index: 1;
 }
 
 .hero-copy {
@@ -93,59 +152,135 @@ main.content:has(.hero-light) #title-block-header {
   min-width: 0;
 }
 
-.hero-eyebrow {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $primary;
-  margin-bottom: 0.75rem;
+.hero-dash {
+  width: 3rem;
+  height: 0.3rem;
+  border-radius: 0.2rem;
+  background: $map-gold;
+  margin-bottom: 1.25rem;
 }
 
 .hero-heading {
   font-weight: 800;
-  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
-  line-height: 1.2;
-  color: $primary-dark;
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  line-height: 1.15;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
+.hero-gold {
+  color: $map-gold;
+}
+
 .hero-lede {
-  color: $body-color;
+  color: #cbd3e0;
   font-size: 1.05rem;
   line-height: 1.65;
-  max-width: 34rem;
+  max-width: 32rem;
   margin-bottom: 1.75rem;
 }
 
-.hero-actions {
+.hero-search {
+  display: flex;
+  align-items: stretch;
+  background: #ffffff;
+  border-radius: 50rem;
+  padding: 0.3rem;
+  max-width: 26rem;
+  box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.35);
+  margin-bottom: 1.5rem;
+}
+
+.hero-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.95rem;
+  color: $primary-dark;
+}
+
+.hero-search input::placeholder {
+  color: #94a3b8;
+}
+
+.hero-search button {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: none;
+  background: $map-gold;
+  color: #2b2208;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.hero-search button:hover,
+.hero-search button:focus-visible {
+  background: darken(#ebbc40, 8%);
+}
+
+.hero-tagline {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-style: italic;
+  color: #cbd3e0;
+  margin-bottom: 0;
 }
 
-.hero-link {
-  font-weight: 600;
-  color: $primary-dark;
-  text-decoration: none;
-}
-
-.hero-link:hover {
-  color: $primary;
+.hero-tagline-mark {
+  width: 1.4rem;
+  height: 0.15rem;
+  background: $map-gold;
+  flex-shrink: 0;
 }
 
 .hero-visual {
+  position: relative;
   flex: 1.4 1 32rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 100%;
 }
 
+.africa-badge-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.africa-ring {
+  position: absolute;
+  border: 1px solid rgba(235, 188, 64, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.africa-ring--outer {
+  width: 130%;
+  height: 130%;
+}
+
+.africa-ring--inner {
+  width: 112%;
+  height: 112%;
+  border-color: rgba(235, 188, 64, 0.28);
+}
+
 .africa-badge {
+  position: relative;
   width: clamp(18rem, 24vw, 27rem);
   height: clamp(18.9rem, 25.2vw, 28.4rem);
   flex-shrink: 0;
@@ -157,62 +292,65 @@ main.content:has(.hero-light) #title-block-header {
 }
 
 .africa-country {
-  fill: #dbe4f0;
-  stroke: #ffffff;
+  fill: #3a3a38;
+  stroke: #1b1b1b;
   stroke-width: 0.5;
 }
 
 .africa-country--soon {
-  fill: lighten($accent, 25%);
+  fill: #5a5240;
 }
 
 .africa-country--live {
-  fill: $accent;
+  fill: $map-gold;
 }
 
-.hero-stat-card {
-  border: none;
-  border-radius: 0.9rem;
-  box-shadow: 0 0.6rem 1.5rem rgba(21, 35, 63, 0.08);
-  min-width: 14rem;
-}
-
-.hero-stat-card .card-body {
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.hero-stat-row {
+.hero-stat-row-group {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-stat-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .hero-stat-icon {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.6rem;
-  background: rgba(47, 111, 237, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.hero-stat-row strong {
+.hero-stat-inline strong {
   display: block;
-  color: $primary-dark;
-  font-size: 1.05rem;
+  color: #ffffff;
+  font-size: 0.95rem;
   line-height: 1.3;
 }
 
-.hero-stat-row span.hero-stat-caption {
-  color: $body-color;
-  font-size: 0.82rem;
+.hero-stat-inline span.hero-stat-caption {
+  color: #a9b3c4;
+  font-size: 0.78rem;
+}
+
+.hero-wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 4.6rem;
+  z-index: 1;
 }
 
 // ---- Explore countries ----------------------------------------------------
@@ -241,12 +379,6 @@ main.content:has(.hero-light) #title-block-header {
 .section-subtext {
   color: $body-color;
   margin-bottom: 0;
-}
-
-.country-search-input {
-  max-width: 16rem;
-  border-radius: 50rem;
-  border-color: #dbe2ef;
 }
 
 .country-grid-new {

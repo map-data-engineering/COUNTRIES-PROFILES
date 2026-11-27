@@ -64,8 +64,11 @@ h2 {
    Every submitted image gets the SAME consistent frame, regardless of
    whatever background color or matting the researcher exported it with.
    This is what replaces asking 11 different researchers to standardize
-   their own export settings. */
-img {
+   their own export settings. Excludes the navbar logo and the homepage's
+   country-flag thumbnails, which have their own, more specific sizing —
+   a plain "img" selector is lower specificity than their classes, but
+   :not() here makes sure there's no rule overlap to worry about at all. */
+img:not(.navbar-logo):not(.country-flag-sm) {
   max-width: 100%;
   height: auto;
   display: block;
