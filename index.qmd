@@ -84,20 +84,6 @@ title-block-banner: false
 </svg>
         </div>
       </div>
-      <div class="hero-stat-row-group">
-        <div class="hero-stat-inline">
-          <span class="hero-stat-icon">🦟</span>
-          <div><strong>7</strong><span class="hero-stat-caption">Countries covered</span></div>
-        </div>
-        <div class="hero-stat-inline">
-          <span class="hero-stat-icon">🌍</span>
-          <div><strong>Sub-Saharan Africa</strong><span class="hero-stat-caption">Malaria endemic</span></div>
-        </div>
-        <div class="hero-stat-inline">
-          <span class="hero-stat-icon">📄</span>
-          <div><strong>11</strong><span class="hero-stat-caption">Sections per country</span></div>
-        </div>
-      </div>
     </div>
   </div>
   <svg class="hero-wave" viewBox="0 0 1440 74" preserveAspectRatio="none" aria-hidden="true">
